@@ -1,0 +1,116 @@
+﻿body {
+    margin-top: 120px;
+}
+h2 {
+    text-align: center;
+}
+h {
+    color: red;
+}
+.container {
+    position: relative;
+    width: 1000px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.con_top {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+.sizing {
+    font-size: 8px;
+}
+
+.input_box {
+    position: relative;
+    margin-top: 1%;
+    padding: 1% 0;
+}
+.input_group {
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 5px;
+}
+.input_box_group {
+    position: absolute;
+    width: 300px;
+    left: 150px;
+}
+.checkbox_group {
+    cursor: pointer;
+    position: absolute;
+    left: 470px;
+    background-color: #fff;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 80px;
+    height: 23px;
+}
+.checkbox_group:hover {
+    background-color: dodgerblue;
+    color: #fff;
+    border: 1px solid white;
+}
+.input_group > label {
+    display: inline-block;
+    width: 140px;
+    word-spacing: 4px;
+}
+.con_bottom {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+.registerok {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.registerok button {
+    background-color: #fff;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.registerok button:hover {
+    background-color: dodgerblue;
+    color: #fff;
+    border: 1px solid white;
+}
+.input_group input:focus::placeholder {
+    visibility: hidden;
+}
+/*.pwd_ok,
+.pwd_no {
+    position: absolute;
+    left: 470px;
+    width: 250px;
+}*/
+/*.pwd_ok,
+.pwd_no,
+.id_ok,
+.id_already {
+    position: absolute;
+    left: 470px;
+    width: 250px;
+}*/
+.pwd_ok,
+.pwd_no {
+    position: absolute;
+    left: 470px;
+    width: 250px;
+}
+.id_ok,
+.id_already {
+    position: absolute;
+    left: 570px;
+    width: 250px;
+}

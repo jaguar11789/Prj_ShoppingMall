@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "관리자 로그인";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Content/css/Login.css">
+    <title>Document</title>
+</head>
+<body>
+    <form action="Login" method="post">
+        <div class="container">
+            <h2>관리자 로그인</h2>
+            <div class="login_id_pw">
+                <label>아이디</label>
+                <input type="text" name="strAdminId" placeholder="아이디를 입력해주세요." />
+            </div>
+            <div class="login_id_pw">
+                <label>비밀번호</label>
+                <input type="password" name="strAdminPwd" placeholder="비밀번호를 입력해주세요." />
+            </div>
+            <div class="login_btn">
+                <button type="submit">로그인</button>
+            </div>
+            <div class="other_login">
+                <a href="../User/UserLogin">사용자 로그인</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

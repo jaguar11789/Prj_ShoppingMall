@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "상품등록";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <form action="ItemRegist" method="post">
+        <label>상품등록</label>
+        <hr />
+        <input type="file" name="strItemImg" onchange="readURL(this)"/>
+        <img id="preview" style="width: 200px; height: 250px;" />
+        <hr />
+        <label>상품명</label>
+        <input type="text" name="strItemName" />
+        <hr />
+        <label>상위 카테고리</label>
+        <select name="intPCategoryNo">
+            <option value="1">상의</option>
+            <option value="2">하의</option>
+            <option value="3">셋업</option>
+        </select>
+        <select name="intSubCategoryNo">
+            <option value="">====상의====</option>
+            <option value="1">셔츠</option>
+            <option value="2">맨투맨</option>
+            <option value="3">후드티</option>
+            <option value="4">긴팔티</option>
+            <option value="5">반팔티</option>
+            <option value="">====하의====</option>
+            <option value="6">슬랙스</option>
+            <option value="7">청바지</option>
+            <option value="8">반바지</option>
+            <option value="">====셋업====</option>
+            <option value="9">정장</option>
+        </select>
+        <hr />
+
+        <label>색상</label><br />
+        <input type="checkbox" name="intItemColorNo" value="1" />
+        <label>Black</label>
+        <input type="checkbox" name="intItemColorNo" value="2" />
+        <label>Navy</label>
+        <input type="checkbox" name="intItemColorNo" value="3" />
+        <label>Cream</label>
+        <input type="checkbox" name="intItemColorNo" value="4" />
+        <label>Gray</label>
+        <input type="checkbox" name="intItemColorNo" value="5" />
+        <label>Lemon</label>
+        <input type="checkbox" name="intItemColorNo" value="6" />
+        <label>Pink</label>
+        <input type="checkbox" name="intItemColorNo" value="7" />
+        <label>Mint</label>
+        <input type="checkbox" name="intItemColorNo" value="8" />
+        <label>White</label>
+        <input type="checkbox" name="intItemColorNo" value="9" />
+        <label>Brick</label>
+        <input type="checkbox" name="intItemColorNo" value="10" />
+        <label>Brown</label>
+        <input type="checkbox" name="intItemColorNo" value="11" />
+        <label>Yellow</label>
+        <input type="checkbox" name="intItemColorNo" value="12" />
+        <label>Beige</label>
+        <input type="checkbox" name="intItemColorNo" value="13" />
+        <label>Blue</label>
+        <input type="checkbox" name="intItemColorNo" value="14" />
+        <label>Green</label>
+        <input type="checkbox" name="intItemColorNo" value="15" />
+        <label>Red</label>
+        <input type="checkbox" name="intItemColorNo" value="16" />
+        <label>Ivory</label>
+        <hr />
+
+        <label>사이즈</label><br />
+        <input type="checkbox" asp-for="intItemSizeNo" name="intItemSizeNo" value="2" />
+        <label>L</label>
+        <input type="checkbox" asp-for="intItemSizeNo" name="intItemSizeNo" value="3" />
+        <label>XL</label>
+        <input type="checkbox" asp-for="intItemSizeNo" name="intItemSizeNo" value="4" />
+        <label>2XL</label>
+        <input type="checkbox" asp-for="intItemSizeNo" name="intItemSizeNo" value="5" />
+        <label>3XL</label>
+        <input type="checkbox" asp-for="intItemSizeNo" name="intItemSizeNo" value="6" />
+        <label>Free</label>
+        <hr />
+        <label>가격</label>
+        <input type="text" name="intItemPrice" />
+        <hr />
+        <button type="submit">등록</button>
+        <button onclick="window.close();">취소</button>
+    </form>
+</body>
+</html>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
+</script>

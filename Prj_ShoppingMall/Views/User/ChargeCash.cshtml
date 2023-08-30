@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "캐시충전";
+}
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html>
+<head>
+
+</head>
+<body>
+    <div style="position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);">
+        <br /><br />
+        <h3 style="text-align: center">캐시 충전</h3>
+        <br /><br />
+        <label>잔액</label>
+        <hr />
+        <div>
+            <div>
+                <div class="box1">총 보유 잔액</div>
+                <div class="box2">@*@ViewBag.UserAcctInfo.intRemainCash*@ 캐시</div>
+                <div class="box1">캐시</div>
+                <div class="box2">@*@ViewBag.UserAcctInfo.intRealCash*@ 캐시</div>
+                <div class="box1">보너스</div>
+                <div class="box2">@*@ViewBag.UserAcctInfo.intRealBonus*@ 캐시</div>
+            </div>
+        </div>
+        <hr />
+        <div>
+            <label>충전 수단</label>
+            <br />
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width: 1100px;">
+                <input type="radio" class="btn-check" name="ChargingMethod" id="creditcard" autocomplete="off" value="creditcard">
+                <label class="btn btn-outline-primary" for="creditcard">신용카드</label>
+
+                <input type="radio" class="btn-check" name="ChargingMethod" id="mobile" autocomplete="off" value="mobile">
+                <label class="btn btn-outline-primary" for="mobile">휴대폰</label>
+
+                <input type="radio" class="btn-check" name="ChargingMethod" id="PayPal" autocomplete="off" value="3">
+                <label class="btn btn-outline-primary" for="PayPal">PayPal</label>
+            </div>
+        </div>
+        <br />
+        <div>
+            <label>충전 금액</label>
+            <br />
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width: 1100px;">
+                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio4" autocomplete="off" value="10000">
+                <label class="btn btn-outline-primary" for="btnradio4">KRW 10,000(캐시 10,000 + 1,000)</label>
+
+                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio5" autocomplete="off" value="30000">
+                <label class="btn btn-outline-primary" for="btnradio5">KRW 30,000(캐시 30,000 + 3,000)</label>
+
+                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio6" autocomplete="off" value="50000">
+                <label class="btn btn-outline-primary" for="btnradio6">KRW 50,000(캐시 50,000 + 5,000)</label>
+            </div>
+        </div>
+        <br />
+        <div>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width: 1100px;">
+                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio7" autocomplete="off" value="70000">
+                <label class="btn btn-outline-primary" for="btnradio7">KRW 70,000(캐시 70,000 + 7,000)</label>
+
+                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio8" autocomplete="off" value="100000">
+                <label class="btn btn-outline-primary" for="btnradio8">KRW 100,000(캐시 100,000 + 10,000)</label>
+
+                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio9" autocomplete="off" value="200000 ">
+                <label class="btn btn-outline-primary" for="btnradio9">KRW 200,000(캐시 200,000 + 20,000)</label>
+            </div>
+        </div>
+        <br />
+        <hr />
+        <div>
+            <input type="checkbox" name="agree1" id="agree1" />결제 이용약관 동의 <a href="#">(약관 자세히 보기)</a>
+            <br />
+            <input type="checkbox" name="agree2" id="agree2" />결제대행사 이용약관 및 결제정보 제공에 대한 동의 <a href="#">(자세히 보기)</a>
+            <hr />
+        </div>
+        <button id="charge" style="width:1100px; height: 50px; background-color: #000000; color: #ffffff;">충전하기</button>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        if (!('@Session["strUserId"]')) {
+            alert("로그인이 필요합니다.");
+            location.href = "UserLogin";  // 로그인 페이지로 리다이렉트
+        }
+    });
+
+    function checkAgreements() {
+        var agree1 = document.getElementById('agree1').checked;
+        var agree2 = document.getElementById('agree2').checked;
+
+        if (!(agree1 && agree2)) {
+            alert("전자금융거래 이용약관에 동의해주세요.");
+            return false;
+        }
+        return true;
+    }
+
+    $(document).ready(function () {
+        $('#charge').click(function (e) {
+            e.preventDefault();
+
+            if (checkAgreements()) {
+                var chargingMethod = $("input[name='ChargingMethod']:checked").val();
+                var chargeAmount = $("input[name='ChargeAmount']:checked").val();
+
+                $.ajax({
+                    url: '@Url.Action("ChargeCash", "Cash")',
+                    type: 'POST',
+                    data: JSON.stringify(
+                        {
+                            payMethod: chargingMethod,
+                            itemPrice: chargeAmount,
+                            itemName: '테스트 상품'
+                        }),
+                    dataType: "text",
+                    contentType: "application/json; charset=utf-8",
+
+                    success: function (data) {
+                        if (data != null) {
+                            openPayment(data);
+                        } else {
+                            alert('돌아가 !');
+                        }
+                    },
+                    error: function (data) {
+                        alert('안돼 돌아가');
+                    }
+                });
+            }
+        });
+    });
+
+    function openPayment(data) {
+        var onlineUrl = data;
+        var strReplace = data.replace(/\"/gi, "");
+        window.open("https://testpg.payletter.com/pgsvc/hub.asp?location=online&token=" + strReplace, "결제", 'width=500, height=1000');
+    }
+</script>

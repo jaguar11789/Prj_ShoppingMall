@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "쿠폰관리";
+}
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html>
+<head>
+</head>
+<body>
+
+    <div>
+        <h3 style="text-align: center">쿠폰 발급</h3>
+        <label><a href="Coupon"><b>쿠폰 발급</b></a></label>
+        <label><a href="CouponCheck">쿠폰 조회</a></label>
+        <label><a href="CouponValidation">쿠폰 유효성 체크</a></label>
+        <hr />
+        <div>
+            <div>
+                <div class="box1"><label>쿠폰 종류</label></div><div class="box2"><label>할인쿠폰</label></div>
+                <div class="box1"><label>쿠폰 단위</label></div>
+                <div class="box2">
+                    <select id="intCpUnit" name="intCpUnit" style="width: 300px">
+                        <option value="">쿠폰 단위</option>
+                        <option value="1">10% 할인</option>
+                        <option value="2">20% 할인</option>
+                        <option value="3">30% 할인</option>
+                    </select>
+                </div>
+
+                <div class="box1"><label>발급 개수(장)</label></div>
+                <div class="box2"><input type="text" id="intCpCount" name="CpCount" style="width: 300px" placeholder="쿠폰 개수를 입력해주세요." /></div>
+
+                <div class="box1"><label>쿠폰 명</label></div>
+                <div class="box2"><input type="text" id="strCpName" name="CpName" style="width: 300px" placeholder="쿠폰명을 입력해주세요." /></div>
+            </div>
+            <hr />
+            <button onclick="CouponIssued()" style="background-color: #000000; color: #ffffff; border-color: #000000; width: 100px; height: 30px">발급</button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function CouponIssued() {
+        var intCpUnit  = document.getElementById('intCpUnit').value;
+        var intCpCount = document.getElementById('intCpCount').value;
+        var strCpName  = document.getElementById('strCpName').value;
+
+        $.ajax({
+            url: '@Url.Action("CouponIssued", "AdminCoupon")',
+            type: 'POST',
+            data: {
+                intCpUnit : intCpUnit,
+                strCpName : strCpName,
+                intCpCount: intCpCount
+            },
+            success: function (result) {
+                if (confirm("아래의 정보로 쿠폰을 발급 하시겠습니까?") == true) {
+                    if (result.intRetVal == 0) {
+                        alert(result.strRetMsg);
+                        window.location.href = "Coupon";
+                    } else {
+                        alert(result.strRetMsg);
+                    }
+                } else {
+                    return;
+                }
+            },
+            error: function () {
+                alert('서버 에러');
+            } 
+        });
+    }
+</script>

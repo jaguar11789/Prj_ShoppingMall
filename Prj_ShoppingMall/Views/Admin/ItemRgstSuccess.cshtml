@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "상품등록 성공";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <h3 style="text-align: center;">상품등록 성공</h3>
+    <hr />
+    <br />
+    <p style="text-align: center;">상품등록이 되었습니다.</p>
+    <br />
+    <hr />
+    <div style="text-align: center">
+        <input type="button" value="확인" onclick="reload()" />
+    </div>
+    <br />
+</body>
+</html>
+<script>
+    function reload() {
+        window.opener.location.reload();
+        window.close();
+    }
+</script>

@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "마이페이지";
+}
+
+<h2>UserMyPage</h2>
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <style>
+        .box1 {
+            float: left;
+            width: 50%;
+            text-align: left;
+        }
+
+        .box2 {
+            display: inline-block;
+            width: 50%;
+            text-align: right;
+        }
+    </style>
+    <br /><br />
+    <h3 style="text-align: center">마이 페이지</h3>
+    <br /><br />
+    <label>잔액</label>
+    <hr />
+    <div>
+        <div class="box1">총 보유 잔액</div>
+        <div class="box2"> 캐시</div>
+        <div class="box1">캐시</div>
+        <div class="box2"> 캐시</div>
+        <div class="box1">보너스</div>
+        <div class="box2"> 캐시</div>
+    </div>
+    <hr />
+    <button onclick="location.href='ChargeCash'" style="background-color: #000000; color: #ffffff; border-color: #000000;">충전하기</button>
+    <hr />
+    <div style="text-align: center;">
+        <table class="table" style="color: #000000;">
+            <tr>
+                <td>
+                    <a style="color: #000000; text-decoration-line: none;" href="PurHistory">ORDER<br />주문내역 조회</a>
+                </td>
+                <td>
+                    <a style="color: #000000; text-decoration-line: none;" href="UserProFile">PROFILE<br />회원 정보</a>
+                </td>
+                <td>
+                    <a style="color: #000000; text-decoration-line: none;" href="ChargeHistory">CHARGE HISTORY<br />충전 내역</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a style="color: #000000; text-decoration-line: none;" href="CouponHistory">COUPON<br />마이 쿠폰</a>
+                </td>
+                <td>
+                    <a style="color: #000000; text-decoration-line: none;" href="GiftHistory">GIFT<br />선물함</a>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <hr />
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        if (!('@Session["strUserId"]')) {
+            alert("로그인이 필요합니다.");
+            location.href = "UserLogin";  // 로그인 페이지로 리다이렉트
+        }
+    });
+</script>

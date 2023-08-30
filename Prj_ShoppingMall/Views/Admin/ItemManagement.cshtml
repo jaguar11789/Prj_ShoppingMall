@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "ItemManagement";
+}
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html>
+<head>
+
+</head>
+<body>
+    <div>
+        <h3>상품 관리</h3>
+        <hr />
+        <div><label>상위 카테고리</label></div>
+        <div>
+            <select name="" id="intPCategoryNo">
+                <option value="">====상위 카테고리====</option>
+                <option value="1">상의</option>
+                <option value="2">하의</option>
+                <option value="3">셋업</option>
+            </select>
+        </div>
+        <div class="box1"><label>하위 카데고리</label></div>
+        <div class="box2">
+            <select name="" id="intSubCategoryNo">
+                <option value="">====하위 카테고리====</option>
+                <option value="">====상의====</option>
+                <option value="1">셔츠</option>
+                <option value="2">맨투맨</option>
+                <option value="3">후드티</option>
+                <option value="4">긴팔티</option>
+                <option value="5">반팔티</option>
+                <option value="">====하의====</option>
+                <option value="6">슬랙스</option>
+                <option value="7">청바지</option>
+                <option value="8">반바지</option>
+                <option value="">====셋업====</option>
+                <option value="9">정장</option>
+            </select>
+        </div>
+        <hr />
+        <button onclick="ItemCheck()">조회</button>
+        <div>
+            <hr />
+            <table>
+                <thead>
+                    <tr>
+                        <td>상품번호</td>
+                        <td>상위 카테고리</td>
+                        <td>하위 카테고리</td>
+                        <td>상품명</td>
+                        <td>가격</td>
+                        <td>등록일</td>                        
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="itemRegist()">상품등록</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function ItemCheck() {
+        var intPCategoryNo   = document.getElementById('intPCategoryNo').value;
+        var intSubCategoryNo = document.getElementById('intSubCategoryNo').value;
+
+        $.ajax({
+            url: '@Url.Action("ItemCheck" ,"AdminItem")',
+            type: 'POST',
+            data: {
+                intPCategoryNo  : intPCategoryNo,
+                intSubCategoryNo: intSubCategoryNo
+            },
+            success: function (result) {
+                if (confirm("아래 항목으로 조회 하시겠습니까?") == true) {
+                    var tbody = $('table > tbody');
+                    tbody.empty();
+                    $.each(result.Item, function (i) {
+                        tbody.append(
+                        '<tr>' +
+                            '<td>' + result.Item[i].intItemNo          + '</td>' +
+                            '<td>' + result.Item[i].strPCategoryName   + '</td>' +
+                            '<td>' + result.Item[i].strSubCategoryName + '</td>' +
+                            '<td>' + '<a style="cursor: pointer"  onclick="ItemDtl(\'' + result.Item[i].intItemNo + '\')">' + result.Item[i].strItemName + '</a>' + '</td>' +
+                            '<td>' + result.Item[i].intItemPrice       + '</td>' +
+                            '<td>' + result.Item[i].strRegDate         + '</td>' +
+                        '</tr>');
+                    });
+                } else {
+                    return;
+                }
+            },
+            error: function () {
+                alert('상위 또는 하위 카테고리를 선택해주세요.');
+            }
+        });
+    }
+
+    function itemRegist() {
+        window.open("ItemRegist", "상품등록", "width=500, height=800, left=300, top=100");
+    }
+
+    function ItemDtl(intItemNo) {
+        var url = "ItemDtl?itemNo=" + intItemNo;
+    }
+</script>
