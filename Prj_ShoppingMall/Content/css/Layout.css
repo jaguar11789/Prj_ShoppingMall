@@ -1,0 +1,119 @@
+﻿/* Google Web Font */
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+/* Fontawesome 4.7 */
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+body {
+    font-family: 'Raleway', sans-serif;
+    height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+}
+#container_navbar {
+    position: relative;
+    background-color: #22222222;
+    border-bottom: 1px solid #22222222;
+    height: 80px;
+    box-sizing: border-box;
+}
+.nav_Logo {
+    position: absolute;
+    font-size: 40px;
+    bottom: 20px;
+    left: 50px;
+}
+.nav_Logo a,
+.nav_menu1 a,
+.nav_menu2 a,
+.nav_user_menu1 a,
+.nav_user_menu2 a {
+    text-decoration: none;
+    color: #222;
+}
+/* 사용자 화면  */
+.nav_menu1 {
+    position: absolute;
+    left: 260px;
+    bottom: 25px;
+    font-size: 16px;
+    list-style: none;
+    width: 250px;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+.nav_menu1 li {
+    flex: 1;
+}
+.nav_menu1 li a {
+    /* font-size: 14px; */
+    position: relative;
+  }
+.nav_menu1 li a:before {
+    content: '';
+    position: absolute;
+    background-color: #222;
+    height: 2px;
+    width: 0;
+    bottom: -5px;
+    transition: 0.3s;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.nav_menu1 li a:hover:before {
+    width: 100%;
+}
+/* 관리자 화면 */
+.nav_menu2 {
+    position: absolute;
+    left: 260px;
+    bottom: 25px;
+    font-size: 16px;
+    list-style: none;
+    width: 530px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+.nav_menu2 li {
+    /* flex: 1; */
+}
+.nav_menu2 li a {
+    position: relative;
+  }
+.nav_menu2 li a:before {
+    content: '';
+    position: absolute;
+    background-color: #222;
+    height: 2px;
+    width: 0;
+    bottom: -5px;
+    transition: 0.3s;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.nav_menu2 li a:hover:before {
+    width: 100%;
+}
+/* 로그인 전 화면 */
+.nav_user_menu1 {
+    position: absolute;
+    bottom: 20px;
+    left: 1750px;
+    word-spacing: 30px;
+}
+/* 로그인 후 화면 */
+.nav_user_menu2 {
+    position: absolute;
+    bottom: 20px;
+    left: 1750px;
+    word-spacing: 30px;
+}
+.welcome_msg {
+    position: absolute;
+    bottom: 40px;
+    left: 1730px;
+}

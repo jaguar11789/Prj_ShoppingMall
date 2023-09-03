@@ -1,4 +1,5 @@
 ﻿using Prj_ShoppingMall.Models.Info;
+using Prj_ShoppingMall.Models.ListViewModel;
 using Prj_ShoppingMall.Models.UserService;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Prj_ShoppingMall.Controllers.UserController
     public class UserController : Controller
     {
         UserService _userService = new UserService();
+        UserCouponService _userCouponService = new UserCouponService();
         // GET: User
         public ActionResult Index()
         {
@@ -130,6 +132,30 @@ namespace Prj_ShoppingMall.Controllers.UserController
             }
 
         }
+
+        // 쿠폰등록 & 조회
+        [HttpGet]
+        public ActionResult UserCouponHistory()
+        {
+            CouponListViewModel objResult = null;
+            UserInfo objUserInfo = new UserInfo();
+
+            if (Session["strUserId"] != null)
+            {
+                objUserInfo.strUserId = Session["strUserId"].ToString();
+                objResult = _userCouponService.getUserCouponList(objUserInfo.strUserId);
+
+                ViewBag.CouponInfo = objResult;
+
+                return View();
+            }
+            else
+            {
+                TempData["Error"] = "로그인이 필요합니다.";
+                return RedirectToAction("UserLogin", "User");
+            }
+        }
+
         // 캐시충전 페이지
         [HttpGet]
         public ActionResult ChargeCash()
@@ -145,12 +171,14 @@ namespace Prj_ShoppingMall.Controllers.UserController
             }
         }
 
+        // 충전성공
         [HttpGet]
         public ActionResult ChargeSuccess()
         {
             return View();
         }
 
+        // 충전실패
         [HttpGet]
         public ActionResult ChargeFail()
         {

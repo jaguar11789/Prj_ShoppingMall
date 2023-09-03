@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "쿠폰 유효성 검사";
+}
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/Content/css/CouponValidation.css">
+    <script>
+
+        $(function(){
+            $("#header").load("/Shared/Layout.html");
+        });
+    </script>
+</head>
+@*<body>
+    <div>
+        <br /><br />
+        <h3 style="text-align: center">쿠폰 유효성 검사</h3>
+        <br /><br />
+        <label><a href="Coupon">쿠폰 발급</a></label>
+        <label><a href="CouponCheck">쿠폰 조회</a></label>
+        <label><a href="CouponValidation"><b>쿠폰 유효성 검사</b></a></label>
+        <hr />
+        <div>
+            <div class="box10">
+                <label>쿠폰 번호</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <div class="box11">
+                <input type="text" id="lngCpCode" name="lngCpCode" style="width: 700px;" placeholder="쿠폰 번호를 입력해주세요." maxlength="16" />
+            </div>
+        </div>
+        <hr />
+        <div style="text-align: center;">
+            <button onclick="CouponCheck()">확인</button>
+        </div>
+        <div>
+            <hr />
+
+        </div>
+    </div>
+</body>*@
+<body>
+    <div id="header"></div>
+    <div class="container">
+        <h3>쿠폰 유효성 체크</h3>
+        <div class="couponmenu">
+            <label><a href="Coupon">쿠폰 발급</a></label>
+            <label><a href="CouponCheck">쿠폰 조회</a></label>
+            <label><a href="CouponValidation">쿠폰 유효성 체크</a></label>
+        </div>
+        <div class="coupon">
+            <div class="couponnum">
+                <label>쿠폰 번호</label>
+            </div>
+            <div class="coupontextbox">
+                <input type="text" id="lngCpCode" name="lngCpCode" " placeholder="쿠폰 번호를 입력해주세요." maxlength="16" />
+            </div>
+            <div>
+                <button onclick="CouponCheck()">확인</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+        function CouponCheck() {
+            var lngCpCode = document.getElementById("lngCpCode").value;
+            $.ajax({
+                url: '@Url.Action("CouponValid", "AdminCoupon")',
+                type: 'POST',
+                data: { lngCpCode: lngCpCode },
+                success: function (result) {
+                    if (result != null && result.strRetMsg != null) {
+                        if (result.intRetVal == 9999) {
+                            alert(result.strRetMsg);
+                            $('#CpCode').val('');
+                        } else if (result.intRetVal == 1000) {
+                            alert(result.strRetMsg);
+                            $('#CpCode').val('');
+                        } else if (result.intRetVal == 1001) {
+                            alert(result.strRetMsg);
+                            $('#CpCode').val('');
+                        } else {
+                            alert(result.strRetMsg);
+                        }
+                    }
+                },
+                error: function () {
+                    alert('서버 에러!!');
+                }
+            });
+        }
+</script>

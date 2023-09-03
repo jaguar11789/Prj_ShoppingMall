@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "쿠폰 상세정보";
+    Layout = null;
+}
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html>
+<head>
+</head>
+<body>
+    <label><b>쿠폰 상세 정보</b></label>
+    <hr />
+    <div>
+        <div>
+            <div>쿠폰 번호</div>
+            <div>@ViewBag.CouponInfo.intCpNo</div>
+        </div>
+        <hr />
+        <div>
+            <div>쿠폰명</div>
+            <div>@ViewBag.CouponInfo.strCpName</div>
+        </div>
+        <hr />
+        <div>
+            <div>쿠폰 종류</div>
+            <div>@ViewBag.CouponInfo.strCpType</div>
+        </div>
+        <hr />
+        <div>
+            <div>쿠폰 단위</div>
+            <div>@ViewBag.CouponInfo.strCpUnit</div>
+        </div>
+        <hr />
+        <div>
+            <div>쿠폰 번호</div>
+            <div>@ViewBag.CouponInfo.lngCpCode</div>
+        </div>
+        <hr />
+        <div>
+            <div>쿠폰 등록일</div>
+            <div>@ViewBag.CouponInfo.strCpRegDate</div>
+        </div>
+        <hr />
+        <div>
+            <div>쿠폰 사용일</div>
+            <div>@ViewBag.CouponInfo.strUseDate</div>
+        </div>
+        <hr />
+        <div>
+            <div>사용자 아이디</div>
+            <div>@ViewBag.CouponInfo.strUserId</div>
+        </div>
+        <hr />
+        <div>
+            <div>관리자</div>
+            <div>@ViewBag.CouponInfo.strAdminId</div>
+        </div>
+        <hr />
+        <div>
+            <div>상태</div>
+            <div>@ViewBag.CouponInfo.strCpState</div>
+        </div>
+        <hr />
+        <div>
+            <div>발급된 쿠폰, 사용전 쿠폰 - <h style="color: blue;">취소 가능</h></div>
+            <div>사용된 쿠폰 - <h style="color: red;">취소 불가</h></div>
+        </div>
+        <hr />
+        <div style="text-align: center;">
+            <button onclick="CouponCnl()">쿠폰 취소</button>
+            <button onclick="window.close()">닫기</button>
+        </div>
+    </div>
+    <script>
+        function CouponCnl() {
+            var intCouponNo = @ViewBag.CouponInfo.intCpNo;
+            if (confirm('해당 쿠폰을 취소 하시겠습니까?')){
+
+                $.ajax({
+                    url: '@Url.Action("CouponCancel", "AdminCoupon")',
+                    type: 'POST',
+                    data: { intCouponNo : intCouponNo },
+                    success: function (result){
+                        if (result.intRetVal == 0) {
+                            alert(result.strRetMsg);
+                            window.opener.location.reload();
+                            window.close();
+                        } else {
+                            alert(result.strRetMsg);
+                        }
+                    },
+                    error: function(){
+                        alert('서버 에러');
+                    }
+                });
+            } else {
+                return;
+            }
+        }
+    </script>
+</body>
+
+</html>

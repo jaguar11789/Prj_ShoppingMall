@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "ItemDtl";
+    Layout = null;
+}
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html>
+<head>
+
+</head>
+<body>
+    <label>상품 수정</label>
+    <form action="../AdminItem/ItemModify" method="post">
+        <input type="hidden" name="intItemNo" id="intItemNo" value="@ViewBag.ItemInfo.intItemNo" />
+        <hr />
+        <div>
+            <img id="preview" style="width: 200px; height: 250px;" src="@ViewBag.ItemInfo.strItemImg" />
+            <input type="file" name="strItemImg" onchange="readURL(this);" value="@ViewBag.ItemInfo.strItemImg" />
+        </div>
+        <hr />
+        <div>
+            <label>상품명</label>
+            <input type="text" name="strItemName" value="@ViewBag.ItemInfo.strItemName" />
+        </div>
+        <hr />
+        <div>
+            <label>카테고리</label>
+            <select name="intPCategoryNo" id="PCategoryNo-select">
+                <option value="">===상위 카테고리===</option>
+                <option value="1">상의</option>
+                <option value="2">하의</option>
+                <option value="3">셋업</option>
+            </select>
+        </div>
+        <hr />
+        <div>
+            <label>하위 카테고리</label>
+            <select name="intSubCategoryNo" id="SubCategoryNo-select">
+                <option value="">===상의===</option>
+                <option value="1">셔츠</option>
+                <option value="2">맨투맨</option>
+                <option value="3">긴팔티</option>
+                <option value="4">긴팔티</option>
+                <option value="5">반팔티</option>
+                <option value="">===하의===</option>
+                <option value="6">슬랙스</option>
+                <option value="7">청바지</option>
+                <option value="8">반바지</option>
+                <option value="">===셋업===</option>
+                <option value="9">정장</option>
+            </select>
+        </div>
+        <hr />
+        <div>
+            <label>색상</label>
+            <input type="checkbox" name="intItemColorNo" value="1" @(ViewBag.ItemInfo.intItemColorNo.Contains(1) ? "checked" : "") />
+            <label>Black</label>
+            <input type="checkbox" name="intItemColorNo" value="2" @(ViewBag.ItemInfo.intItemColorNo.Contains(2) ? "checked" : "") />
+            <label>Navy</label>
+            <input type="checkbox" name="intItemColorNo" value="3" @(ViewBag.ItemInfo.intItemColorNo.Contains(3) ? "checked" : "") />
+            <label>Cream</label>
+            <input type="checkbox" name="intItemColorNo" value="4" @(ViewBag.ItemInfo.intItemColorNo.Contains(4) ? "checked" : "") />
+            <label>Gray</label>
+            <input type="checkbox" name="intItemColorNo" value="5" @(ViewBag.ItemInfo.intItemColorNo.Contains(5) ? "checked" : "") />
+            <label>Lemon</label>
+            <input type="checkbox" name="intItemColorNo" value="6" @(ViewBag.ItemInfo.intItemColorNo.Contains(6) ? "checked" : "") />
+            <label>Pink</label>
+            <input type="checkbox" name="intItemColorNo" value="7" @(ViewBag.ItemInfo.intItemColorNo.Contains(7) ? "checked" : "") />
+            <label>Mint</label>
+            <input type="checkbox" name="intItemColorNo" value="8" @(ViewBag.ItemInfo.intItemColorNo.Contains(8) ? "checked" : "") />
+            <label>White</label>
+            <input type="checkbox" name="intItemColorNo" value="9" @(ViewBag.ItemInfo.intItemColorNo.Contains(9) ? "checked" : "") />
+            <label>Brick</label>
+            <input type="checkbox" name="intItemColorNo" value="10" @(ViewBag.ItemInfo.intItemColorNo.Contains(10) ? "checked" : "") />
+            <label>Brown</label>
+            <input type="checkbox" name="intItemColorNo" value="11" @(ViewBag.ItemInfo.intItemColorNo.Contains(11) ? "checked" : "") />
+            <label>Yellow</label>
+            <input type="checkbox" name="intItemColorNo" value="12" @(ViewBag.ItemInfo.intItemColorNo.Contains(12) ? "checked" : "") />
+            <label>Beige</label>
+            <input type="checkbox" name="intItemColorNo" value="13" @(ViewBag.ItemInfo.intItemColorNo.Contains(13) ? "checked" : "") />
+            <label>Blue</label>
+            <input type="checkbox" name="intItemColorNo" value="14" @(ViewBag.ItemInfo.intItemColorNo.Contains(14) ? "checked" : "") />
+            <label>Green</label>
+            <input type="checkbox" name="intItemColorNo" value="15" @(ViewBag.ItemInfo.intItemColorNo.Contains(15) ? "checked" : "") />
+            <label>Red</label>
+            <input type="checkbox" name="intItemColorNo" value="16" @(ViewBag.ItemInfo.intItemColorNo.Contains(16) ? "checked" : "") />
+            <label>Ivory</label>
+        </div>
+        <hr />
+        <div>
+            <label>사이즈</label>
+            <input type="checkbox" name="intItemSizeNo" value="1" @(ViewBag.ItemInfo.intItemSizeNo.Contains(1) ? "checked" : "") />
+            <label>M</label>
+            <input type="checkbox" name="intItemSizeNo" value="2" @(ViewBag.ItemInfo.intItemSizeNo.Contains(2) ? "checked" : "") />
+            <label>L</label>
+            <input type="checkbox" name="intItemSizeNo" value="3" @(ViewBag.ItemInfo.intItemSizeNo.Contains(3) ? "checked" : "") />
+            <label>XL</label>
+            <input type="checkbox" name="intItemSizeNo" value="4" @(ViewBag.ItemInfo.intItemSizeNo.Contains(4) ? "checked" : "") />
+            <label>2XL</label>
+            <input type="checkbox" name="intItemSizeNo" value="5" @(ViewBag.ItemInfo.intItemSizeNo.Contains(5) ? "checked" : "") />
+            <label>3XL</label>
+            <input type="checkbox" name="intItemSizeNo" value="6" @(ViewBag.ItemInfo.intItemSizeNo.Contains(6) ? "checked" : "") />
+            <label>Free</label>
+        </div>
+        <hr />
+        <div>
+            <label>가격</label>
+            <input type="text" name="intItemPrice" value="@ViewBag.ItemInfo.intItemPrice" />
+        </div>
+        <div style="text-align: center;">
+            <input type="submit" class="" value="수정" />
+            <button type="button" onclick="deleteItem();">상태변경</button>
+            <input type="button" value="취소" onclick="window.close()" />
+        </div>
+    </form>
+</body>
+</html>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
+
+    function deleteItem() {
+        var intItemNo = @ViewBag.ItemInfo.intItemNo;
+        if (confirm('해당 상품을 상태변경 하시겠습니까?')){
+            $.ajax({
+                url: '@Url.Action("ItemDelete", "AdminItem")',
+                type: 'POST',
+                data: { intItemNo: intItemNo },
+                success: function (result) {
+                    if (result.intRetVal == 0){
+                        alert(result.strRetMsg);
+                        window.opener.location.reload();
+                        window.close();
+                    } else {
+                        alert(result.strRetMsg);
+                    }
+                },
+                error: function () {
+                    alert('서버 에러');
+                }
+            });
+        }
+        else{
+            return;
+        }
+    }
+</script>

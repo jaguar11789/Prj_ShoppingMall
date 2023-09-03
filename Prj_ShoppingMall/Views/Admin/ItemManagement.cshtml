@@ -21,8 +21,8 @@
                 <option value="3">셋업</option>
             </select>
         </div>
-        <div class="box1"><label>하위 카데고리</label></div>
-        <div class="box2">
+        <div><label>하위 카데고리</label></div>
+        <div>
             <select name="" id="intSubCategoryNo">
                 <option value="">====하위 카테고리====</option>
                 <option value="">====상의====</option>
@@ -39,6 +39,13 @@
                 <option value="9">정장</option>
             </select>
         </div>
+        <div>
+            <label>상태</label>
+            <select id="intItemState">
+                <option value="1">등록</option>
+                <option value="2">미등록</option>
+            </select>
+        </div>
         <hr />
         <button onclick="ItemCheck()">조회</button>
         <div>
@@ -51,6 +58,7 @@
                         <td>하위 카테고리</td>
                         <td>상품명</td>
                         <td>가격</td>
+                        <td>관리자</td>
                         <td>등록일</td>                        
                     </tr>
                 </thead>
@@ -66,13 +74,15 @@
     function ItemCheck() {
         var intPCategoryNo   = document.getElementById('intPCategoryNo').value;
         var intSubCategoryNo = document.getElementById('intSubCategoryNo').value;
+        var intItemState     = document.getElementById('intItemState').value;
 
         $.ajax({
             url: '@Url.Action("ItemCheck" ,"AdminItem")',
             type: 'POST',
             data: {
                 intPCategoryNo  : intPCategoryNo,
-                intSubCategoryNo: intSubCategoryNo
+                intSubCategoryNo: intSubCategoryNo,
+                intItemState    : intItemState
             },
             success: function (result) {
                 if (confirm("아래 항목으로 조회 하시겠습니까?") == true) {
@@ -86,6 +96,8 @@
                             '<td>' + result.Item[i].strSubCategoryName + '</td>' +
                             '<td>' + '<a style="cursor: pointer"  onclick="ItemDtl(\'' + result.Item[i].intItemNo + '\')">' + result.Item[i].strItemName + '</a>' + '</td>' +
                             '<td>' + result.Item[i].intItemPrice       + '</td>' +
+
+                            '<td>' + result.Item[i].strAdminId         + '</td>' +
                             '<td>' + result.Item[i].strRegDate         + '</td>' +
                         '</tr>');
                     });
@@ -94,7 +106,7 @@
                 }
             },
             error: function () {
-                alert('상위 또는 하위 카테고리를 선택해주세요.');
+                alert('서버 에러 !');
             }
         });
     }
@@ -105,5 +117,6 @@
 
     function ItemDtl(intItemNo) {
         var url = "ItemDtl?itemNo=" + intItemNo;
+        window.open(url, "상품상세", "width=500, height=800, left=300, top=100")
     }
 </script>

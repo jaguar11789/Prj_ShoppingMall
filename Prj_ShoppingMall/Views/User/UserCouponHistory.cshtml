@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "쿠폰목록";
+    var couponListViewModel = (Prj_ShoppingMall.Models.ListViewModel.CouponListViewModel)ViewBag.CouponInfo;
+}
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html>
+<head>
+
+</head>
+<body>
+    <div>
+        <label>쿠폰 목록</label>
+        @if (couponListViewModel != null && couponListViewModel.intRetVal == 0)
+        {
+            foreach (var coupon in couponListViewModel.Coupon)
+            {
+                <div>@coupon.strCpName</div>
+                <div>@coupon.lngCpCode</div>
+            }
+        }
+        else
+        {
+            <div>@couponListViewModel.strRetMsg</div>
+        }
+
+    </div>
+    <label>쿠폰 등록</label>
+    <div>
+        <label>쿠폰 번호</label>
+        <input type="text" id="lngCpCode" name="lngCpCode" placeholder="쿠폰 번호를 입력해주세요." maxlength="16" />
+        <button onclick="RegistCoupon()">등록</button>
+    </div>
+</body>
+</html>
+<script>
+    function RegistCoupon() {
+
+        var lngCpCode = document.getElementById('lngCpCode').value;
+        $.ajax({
+            url: '@Url.Action("CouponRegist", "UserMyPage")',
+            type: 'POST',
+            data: {
+                lngCpCode: lngCpCode
+            },
+            success: function (result) {
+                if (confirm("해당쿠폰을 등록 하시겠습니까?") == true) {
+                    if (result.intRetVal == 0) {
+                        alert(result.strRetMsg);
+                        location.reload();
+                    } else {
+                        alert(result.strRetMsg);
+                    }
+                } else {
+                    return;
+                }
+            },
+            error: function () {
+                alert('서버 에러');
+            }
+        });
+    }
+</script>

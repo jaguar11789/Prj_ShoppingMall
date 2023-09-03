@@ -1,0 +1,68 @@
+﻿/* Google Web Font */
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap%27');
+
+/* Fontawesome 4.7 */
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+body {
+    font-family: 'Raleway', sans-serif;
+}
+.container {
+    margin: 50px 20% 0 20%;
+}
+h3 {
+    text-align: center;
+}
+.container a{
+    text-decoration: none;
+    color: black;
+}
+.couponmenu {
+    position: relative;
+    margin: 10px 0;
+}
+.couponmenu a{
+    font-size: 16px;
+    margin: 0 20px;
+}
+.couponmenu label:nth-child(1):hover,
+.couponmenu label:nth-child(2):hover,
+.couponmenu label:nth-child(3):hover {
+    color: black;
+    font-weight: bold;
+}
+.coupon {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+    padding: 20px;
+    border-bottom: 1px dashed black;
+    border-top: 1px dashed black;
+}
+select {
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
+    transition: 0.5s;
+}
+select:focus {
+    border: 1px solid dodgerblue;
+    transition: 0.5s;
+}
+.coupon button {
+    background-color: #fff;
+    border-radius: 5px;
+    border-color: #222222;
+    width: 100px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+tr, td {
+    border: 1px solid #222222;
+}

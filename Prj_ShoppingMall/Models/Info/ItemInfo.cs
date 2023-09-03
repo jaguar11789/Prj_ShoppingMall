@@ -29,6 +29,8 @@ namespace Prj_ShoppingMall.Models.Info
         public string       strSubCategoryName { get; set; }
         public List<string> objItemColorList   { get; set; }
         public List<string> objItemSizeList    { get; set; }
+        public int          intItemState       { get; set; }
+
         public int          intDeliveryPrice   { get; set; } = 2500;
     }
 }

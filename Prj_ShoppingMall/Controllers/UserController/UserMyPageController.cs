@@ -11,6 +11,7 @@ namespace Prj_ShoppingMall.Controllers.UserController
     public class UserMyPageController : Controller
     {
         UserService _userService = new UserService();
+        UserCouponService _userCouponService = new UserCouponService();
         // GET: UserMyPage
         public ActionResult Index()
         {
@@ -21,11 +22,32 @@ namespace Prj_ShoppingMall.Controllers.UserController
         [HttpPost]
         public JsonResult UserModify(UserInfo objUserInfo)
         {
-            if(Session["strUserId"] != null) {
+            if (Session["strUserId"] != null) {
                 objUserInfo.strUserId = Session["strUserId"].ToString();
                 objUserInfo = _userService.UserModify(objUserInfo, objUserInfo.strUserId);
 
                 return Json(objUserInfo);
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        // 쿠폰등록
+        [HttpPost]
+        public JsonResult CouponRegist(long lngCpCode)
+        {
+            CheckInfo objCheckInfo = null;
+
+            if (Session["strUserId"] != null)
+            {
+                UserInfo objUserInfo = new UserInfo();
+                objUserInfo.strUserId = Session["strUserId"].ToString();
+
+                objCheckInfo = _userCouponService.couponRegist(lngCpCode, objUserInfo.strUserId);
+
+                return Json(objCheckInfo);
             }
             else
             {

@@ -7,109 +7,82 @@
     @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link rel="stylesheet" href="~/Content/css/Layout.css">
+    <link rel="stylesheet" href="~/Content/css/footer.css">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <br />
-            <div class="">
-                @if (Session["strAdminId"] != null)
-            {
-                    <div style="text-align: left;" class="box1">
-
-
-                        <label>@Html.ActionLink("홈", "AdminIndex", "Admin")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label><a href="Admin/AdminIndex">홈</a></label>
-
-
-                        <label>@Html.ActionLink("전체 결제 내역", "PaymentHistory", "Admin")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>@Html.ActionLink("전체 구매 내역", "AllPurchase", "Admin")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>@Html.ActionLink("이용자 계좌조회", "UserAcctStatus", "Admin")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>@Html.ActionLink("쿠폰", "Coupon", "Admin")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>@Html.ActionLink("상품 관리", "ItemManagement", "Admin")</label>
-                    </div>
-                    <div style="text-align: left;" class="box1" hidden>
-                        <label>@Html.ActionLink("상의", "ItemUpDtl", "User")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>@Html.ActionLink("하의", "ItemPantsDtl", "User")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>@Html.ActionLink("셋업", "ItemSetupDtl", "User")</label>
-                    </div>
-                }
-                else
-                {
-                    <div style="text-align: left;" class="box1">
-                        <label>@Html.ActionLink("상의", "ItemUpDtl", "User")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>@Html.ActionLink("하의", "ItemPantsDtl", "User")</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label>@Html.ActionLink("셋업", "ItemSetupDtl", "User")</label>
-                    </div>
-                }
-                <div style="text-align: right;">
-                    @if (Session["strUserId"] != null)
-                    {
-                        using (Html.BeginForm("UserLogout", "User", FormMethod.Post, new { onsubmit = "logoutButton.disabled = true; return true;", id = "logoutForm", @class = "navbar-right" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div>
-                                <div class="box4">
-                                    @Html.ActionLink("안녕하세요. " + Session["strUserId"] + "님", null, null, routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
-                                </div>
-
-                                <div class="box2">
-                                    <input class="loginBtn" type="submit" value="로그아웃" id="logoutButton">
-                                    <a href="/User/UserMyPage">MYPAGE</a>
-                                </div>
-                            </div>
-                        }
-                    }
-                    else if (Session["strAdminId"] != null)
-                    {
-                        using (Html.BeginForm("AdminLogout", "Admin", FormMethod.Post, new { onsubmit = "logoutButton.disabled = true; return true;", id = "logoutForm", @class = "navbar-right" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div>
-                                <div class="box4">
-                                    @Html.ActionLink("안녕하세요. " + Session["strAdminId"] + "님", null, null, routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
-                                </div>
-
-                                <div class="box2">
-                                    <input class="loginBtn" type="submit" value="로그아웃" id="logoutButton">
-                                    <a href="/User/UserMyPage">MYPAGE</a>
-                                </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <div class="box2">
-                            <label>@Html.ActionLink("LOGIN", "UserLogin", "User", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</label>&nbsp;&nbsp;
-                            <label>@Html.ActionLink("REGISTER", "UserRegister", "User", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</label>
-                        </div>
-                    }
-                </div>
-            </div>
-
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
-            </div>
+    <div id="container_navbar">
+        <div class="nav_Logo">
+            <div class="Logo"><a href="../Home/Index">LOGO</a></div>
         </div>
+        @if (Session["strAdminId"] != null)
+        {
+            <!-- 관리자 화면  -->
+            <ul class="nav_menu2">
+                <li><a href="PaymentHistory">전체 결제 내역</a></li>
+                <li><a href="AllPurchase">전체 구매 내역</a></li>
+                <li><a href="UserAcctStatus">이용자 계좌 조회</a></li>
+                <li><a href="Coupon">쿠폰</a></li>
+                <li><a href="ItemManagement">상품 관리</a></li>
+            </ul>
+        }
+        else
+        {
+            <!-- 사용자 화면  -->
+            <ul class="nav_menu1">
+                <li><a href="#">상의</a></li>
+                <li><a href="#">하의</a></li>
+                <li><a href="#">셋업</a></li>
+            </ul>
+        }
+        @if (Session["strUserId"] != null)
+        {
+            using (Html.BeginForm("UserLogout", "User", FormMethod.Post, new { onsubmit = "logoutButton.disabled = true; return true;" }))
+            {
+                <!-- 사용자 로그인 후 화면  -->
+                <div class="nav_user_menu2">
+                    <span><input type="submit" value="LOGOUT" /></span>
+                    @*<span><a href="../User/UserMyPage">MYPAGE</a></span>*@
+                    @*<span><a type="submit" href="#">LOGOUT</a></span>*@
+                </div>
+                <div class="welcome_msg">
+                    <span><a style="text-decoration: none; color: #222222;" href="../User/UserMyPage">@Session["strUserId"]님 환영합니다.</a></span>
+                    
+                </div>
+            }
+        }
+        else if (Session["strAdminId"] != null)
+        {
+            using (Html.BeginForm("AdminLogout", "Admin", FormMethod.Post, new { onsubmit = "logoutButton.disabled = true; return true;" }))
+            {
+                <!-- 관리자 로그인 후 화면  -->
+                <div class="nav_user_menu2">
+                    <input type="submit" value="LOGOUT" />
+                    @*<span><a type="submit" href="#">LOGOUT</a></span>*@
+                </div>
+                <div class="welcome_msg">
+                    <span>@Session["strAdminId"]님 환영합니다.</span>
+                </div>
+            }
+        }
+        else
+        {
+            <!-- 로그인 전 화면  -->
+            <div class="nav_user_menu1">
+                <span><a href="../User/UserLogin">LOGIN</a></span>
+                <span><a href="../User/UserRegister">REGISTER</a></span>
+            </div>
+        }
     </div>
-
-    <div class="container body-content">
+    <div>
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <span>© LOGO Corp.</span><p id="current-time"></p>
         </footer>
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
 </body>
 </html>

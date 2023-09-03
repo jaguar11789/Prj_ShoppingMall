@@ -1,15 +1,41 @@
-﻿
-@{
+﻿@{ 
     ViewBag.Title = "메인";
+    Layout = null;
 }
-
-<h2>Main</h2>
-
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Content/css/index.css">
+    <title>Document</title>
 </head>
 <body>
+
+
+    <div class="tab-inner">
+        <input type="radio" id="tab1" name="tabmenu" checked="">
+        <input type="radio" id="tab2" name="tabmenu">
+        <input type="radio" id="tab3" name="tabmenu">
+        <div class="tabs">
+            <div class="items">
+                <div>
+                    <h1><a href="/Home/Main">Logo</a></h1>
+                </div>
+                <div>
+                    <h1><a href="/Home/Main">Logo</a></h1>
+                </div>
+                <div>
+                    <h1><a href="/Home/Main">Logo</a></h1>
+                </div>
+            </div>
+        </div>
+        <div class="btn">
+            <label for="tab1">Top</label>
+            <label for="tab2">Bottom</label>
+            <label for="tab3">Set Up</label>
+        </div>
+    </div>
 
 </body>
 </html>

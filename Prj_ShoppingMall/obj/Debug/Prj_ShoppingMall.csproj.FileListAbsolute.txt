@@ -45,3 +45,5 @@ Z:\C#\Prj_ShoppingMall\Prj_ShoppingMall\obj\Debug\Prj_ShoppingMall.csprojResolve
 Z:\C#\Prj_ShoppingMall\Prj_ShoppingMall\obj\Debug\Prj_ShoppingMall.dll
 Z:\C#\Prj_ShoppingMall\Prj_ShoppingMall\obj\Debug\Prj_ShoppingMall.pdb
 Z:\C#\Prj_ShoppingMall\Prj_ShoppingMall\bin\Newtonsoft.Json.dll
+Z:\C#\Prj_ShoppingMall\Prj_ShoppingMall\bin\log4net.dll
+Z:\C#\Prj_ShoppingMall\Prj_ShoppingMall\bin\log4net.xml

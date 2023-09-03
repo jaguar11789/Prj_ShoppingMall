@@ -13,7 +13,7 @@ namespace Prj_ShoppingMall.Models.AdminService
 {
     public class AdminService
     {
-        string strConnectionString = ConfigurationManager.ConnectionStrings["strConnectionString"].ConnectionString;
+        private static string strConnectionString = ConfigurationManager.ConnectionStrings["strConnectionString"].ConnectionString;
 
         public Tuple<int, string> adminLogin(AdminInfo objAdminInfo)
         {

@@ -1,5 +1,6 @@
 ﻿using Prj_ShoppingMall.Models.AdminService;
 using Prj_ShoppingMall.Models.Info;
+using Prj_ShoppingMall.Models.ListViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,24 @@ namespace Prj_ShoppingMall.Controllers.AdminController
             return View();
         }
 
+        // 쿠폰 유효성 검사 페이지
+        [HttpGet]
+        public ActionResult CouponValidation()
+        {
+            return View();
+        }
+
+        // 쿠폰 상세정보 페이지
+        public ActionResult CouponDtl(int CpNo)
+        {
+            CouponInfo objResult = new CouponInfo();
+            objResult = _adminCouponService.getCouponDetailInfo(CpNo);
+
+            ViewBag.CouponInfo = objResult;
+
+            return View();
+        }
+
         // 상품관리 페이지
         [HttpGet]
         public ActionResult ItemManagement()
@@ -113,6 +132,49 @@ namespace Prj_ShoppingMall.Controllers.AdminController
         // 상품등록 실패 페이지
         [HttpGet]
         public ActionResult ItemRgstFail()
+        {
+            return View();
+        }
+
+        // 상품상세 페이지
+        [HttpGet]
+        public ActionResult ItemDtl(int itemNo)
+        {
+            ItemInfo objItemInfo = null;
+
+            if(Session["strAdminId"] != null)
+            {
+                // 상품 기본정보
+                objItemInfo = _adminItemService.getItemDetail(itemNo);
+
+                // 상품 색상정보
+                List<int> lstItemColorInfo = _adminItemService.getItemColorInfo(itemNo);
+                objItemInfo.intItemColorNo = lstItemColorInfo;
+
+                // 상품 사이즈정보
+                List<int> lstItemSizeInfo = _adminItemService.getItemSizeInfo(itemNo);
+                objItemInfo.intItemSizeNo = lstItemSizeInfo;
+
+                ViewBag.ItemInfo = objItemInfo;
+
+                return View();
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        // 상품수정 성공
+        [HttpGet]
+        public ActionResult ItemModifySuccess()
+        {
+            return View();
+        }
+
+        // 상품수정 실패
+        [HttpGet]
+        public ActionResult ItemModifyFail()
         {
             return View();
         }

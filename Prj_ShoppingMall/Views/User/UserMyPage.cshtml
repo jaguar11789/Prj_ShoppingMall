@@ -2,8 +2,6 @@
 @{
     ViewBag.Title = "마이페이지";
 }
-
-<h2>UserMyPage</h2>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,28 +38,17 @@
     <button onclick="location.href='ChargeCash'" style="background-color: #000000; color: #ffffff; border-color: #000000;">충전하기</button>
     <hr />
     <div style="text-align: center;">
-        <table class="table" style="color: #000000;">
-            <tr>
-                <td>
-                    <a style="color: #000000; text-decoration-line: none;" href="PurHistory">ORDER<br />주문내역 조회</a>
-                </td>
-                <td>
-                    <a style="color: #000000; text-decoration-line: none;" href="UserProFile">PROFILE<br />회원 정보</a>
-                </td>
-                <td>
-                    <a style="color: #000000; text-decoration-line: none;" href="ChargeHistory">CHARGE HISTORY<br />충전 내역</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a style="color: #000000; text-decoration-line: none;" href="CouponHistory">COUPON<br />마이 쿠폰</a>
-                </td>
-                <td>
-                    <a style="color: #000000; text-decoration-line: none;" href="GiftHistory">GIFT<br />선물함</a>
-                </td>
-                <td></td>
-            </tr>
-        </table>
+
+        <a style="color: #000000; text-decoration-line: none;" href="UserPurHistory">ORDER<br />주문내역 조회</a>
+
+        <a style="color: #000000; text-decoration-line: none;" href="UserProFile">PROFILE<br />회원 정보</a>
+
+        <a style="color: #000000; text-decoration-line: none;" href="UserChargeHistory">CHARGE HISTORY<br />충전 내역</a>
+
+        <a style="color: #000000; text-decoration-line: none;" href="UserCouponHistory">COUPON<br />마이 쿠폰</a>
+
+        <a style="color: #000000; text-decoration-line: none;" href="UserGiftHistory">GIFT<br />선물함</a>
+
     </div>
     <br />
     <hr />

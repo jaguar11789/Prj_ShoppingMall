@@ -191,6 +191,7 @@ namespace Prj_ShoppingMall.Models.UserService
             }
         }
 
+        // 사용자 정보
         public UserInfo getUserInfo(string strUserId)
         {
             int intRetVal        = 0;

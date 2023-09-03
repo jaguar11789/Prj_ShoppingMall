@@ -43,11 +43,47 @@ namespace Prj_ShoppingMall.Controllers.AdminController
         {
             CouponListViewModel objResult = null;
 
-            if(Session["strAdminId"] != null)
+            if (Session["strAdminId"] != null)
             {
                 objResult = _adminCouponService.getCouponList(intCpUnit, intCpState);
 
                 return Json(objResult);
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        // 쿠폰 유효성 검사
+        [HttpPost]
+        public JsonResult CouponValid(CouponInfo objCouponInfo)
+        {
+            CheckInfo objCheckInfo = null;
+
+            if (Session["strAdminId"] != null)
+            {
+                objCheckInfo = _adminCouponService.couponValidation(objCouponInfo);
+
+                return Json(objCheckInfo);
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+
+        // 쿠폰 취소
+        [HttpPost]
+        public JsonResult CouponCancel(int intCouponNo)
+        {
+            CheckInfo objCheckInfo = null;
+
+            if (Session["strAdminId"] != null)
+            {
+                objCheckInfo = _adminCouponService.couponCancel(intCouponNo);
+
+                return Json(objCheckInfo);
             }
             else
             {

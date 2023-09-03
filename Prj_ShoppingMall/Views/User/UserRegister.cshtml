@@ -1,13 +1,12 @@
 ﻿ @{
     ViewBag.Title = "회원가입";
 } 
-<!DOCTYPE html>
+@*<!DOCTYPE html>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/Content/css/UserRegister.css">
 <html lang="ko">
 <head>
-
 </head>
 <body>
     <div class="container">
@@ -91,7 +90,105 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
+    <br />
+</body>
+</html>*@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="/Content/css/UserRegister.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="container">
+        <h2>회원가입</h2>
+        <div class="con_top">
+            <div>기본 정보</div>
+            <div class="sizing"><h>*</h>필수 입력 사항</div>
+        </div>
+        <div>
+            <div class="input_box">
+                <div class="input_group">
+                    <label><h>*</h> 아이디</label>
+                    <input type="text" class="input_box_group" id="strUserId" name="strUserId" placeholder="아이디를 입력하세요." />
+                    <input type="button" onclick="IdCheck();" class="checkbox_group" value="중복확인" />
+                    <span class="id_ok">사용 가능한 아이디입니다.</span>
+                    <span class="id_already">중복된 아이디입니다.</span>
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 비밀번호</label>
+                    <input type="password" class="input_box_group" id="strUserPwd" name="strUserPwd" placeholder="비밀번호를 입력하세요." />
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 비밀번호 확인</label>
+                    <input type="password" class="input_box_group" placeholder="비밀번호 확인" id="userPwdCheck" />
+                    <span class="pwd_ok">비밀번호가 일치합니다.</span>
+                    <span class="pwd_no">비밀번호가 일치하지 않습니다.</span>
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 이름</label>
+                    <input type="text" class="input_box_group" id="strUserName" name="strUserName" placeholder="이름을 입력하세요." />
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 우편번호</label>
+                    <input type="text" class="input_box_group" id="strAddrPost" name="strAddrPost" readonly />
+                    <input type="button" onclick="addrsearch();" class="checkbox_group" value="주소검색" />
+
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 기본주소</label>
+                    <input type="text" class="input_box_group" id="strAddrBase" name="strAddrBase" placeholder="기본주소" readonly />
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 상세주소</label>
+                    <input type="text" class="input_box_group" id="strAddrDtl" name="strAddrDtl" placeholder="상세주소를 입력하세요." />
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 전화번호</label>
+                    <input type="tel" class="input_box_group" id="strUserTelNum" name="strUserTelNum" placeholder="전화번호를 입력하세요..(- 제외)" />
+                </div>
+            </div>
+            <div class="con_bottom">
+                <label><h>*</h> <b>환불계좌</b></label>
+            </div>
+            <div class="input_box">
+                <div class="input_group">
+                    <label><h>*</h> 예금주</label>
+                    <input type="text" class="input_box_group" id="strAcctHolder" name="strAcctHolder" placeholder="예금주 성함" />
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 은행명</label>
+                    <select class="input_box_group" id="strBankName" name="strBankName">
+                        <option value="하나(외환)은행">하나(외환)은행</option>
+                        <option value="국민은행">국민은행</option>
+                        <option value="신한은행">신한은행</option>
+                        <option value="우리은행">우리은행</option>
+                        <option value="기업은행">기업은행</option>
+                        <option value="농협">농협</option>
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="신협은행">신협은행</option>
+                        <option value="수협은행">수협은행</option>
+                    </select>
+                </div>
+                <div class="input_group">
+                    <label><h>*</h> 계좌번호</label>
+                    <input type="text" class="input_box_group" id="strAcctNo" name="strAcctNo" placeholder="계좌번호를 입력하세요.(- 제외)" />
+                </div>
+            </div>
+            <div class="registerok">
+                <button onclick="UserRegister()" class="">회원가입</button>
+                <button onclick="location.href='UserLogin'">취소</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
         //주소검색
         function addrsearch() {
             new daum.Postcode({
@@ -125,8 +222,8 @@
                 }
             })
         });
-    </script>
-    <script>
+</script>
+<script>
 
         function IdCheck() {
             var strUserId = document.getElementById('strUserId').value;
@@ -208,18 +305,15 @@
                 }
             });
         }
-    </script>
-    <style>
-        .id_ok, .pwd_ok {
-            color: #6A82FB;
-            display: none;
-        }
+</script>
+<style>
+    .id_ok, .pwd_ok {
+        color: #6A82FB;
+        display: none;
+    }
 
-        .id_already, .pwd_no {
-            color: red;
-            display: none;
-        }
-    </style>
-
-</body>
-</html>
+    .id_already, .pwd_no {
+        color: red;
+        display: none;
+    }
+</style>

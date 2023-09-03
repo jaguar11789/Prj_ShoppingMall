@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/footer.css">
+    <title>Document</title>
+    <script>
+        function displayCurrentTime() {
+            var currentDate = new Date();
+            var currentTime = currentDate.toLocaleTimeString();
+            document.getElementById("current-time").innerHTML = currentTime;
+        }
+
+        setInterval(displayCurrentTime, 1000);
+    </script>
+</head>
+<body onload="displayCurrentTime()">
+    <div class="footer">
+        <span>© LOGO Corp.</span><p id="current-time"></p>
+    </div>
+</body>
+</html>

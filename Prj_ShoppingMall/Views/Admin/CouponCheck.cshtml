@@ -1,46 +1,60 @@
-﻿
-@{
-    ViewBag.Title = "CouponCheck";
+﻿@{
+    ViewBag.Title = "쿠폰조회";
 }
 <!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<html>
+<link rel="stylesheet" href="/Content/css/CouponCheck.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<html lang="ko">
 <head>
-
+    <title>Document</title>
+    @*<script>
+        $(function(){
+            $("#header").load("/Shared/Layout.html");
+        });
+        $(function(){
+            $("#footer").load("/Shared/footer.html");
+        });
+    </script>*@
 </head>
 <body>
-    <div>
+    <div id="header"></div>
+
+    <div class="container">
         <h3>쿠폰 조회</h3>
-        <br /><br />
-        <label><a href="Coupon">쿠폰 발급</a></label>
-        <label><a href="CouponCheck"><b>쿠폰 조회</b></a></label>
-        <label><a href="CouponValidation">쿠폰 유효성 체크</a></label>
-        <hr />
-        <div><label>쿠폰 단위</label></div>
-        <div>
-            <select name="intCpUnit" id="intCpUnit">
-                <option value="">쿠폰 단위</option>
-                <option value="1">10% 할인</option>
-                <option value="2">20% 할인</option>
-                <option value="3">30% 할인</option>
-            </select>
+        <div class="couponmenu">
+            <label><a href="Coupon">쿠폰 발급</a></label>
+            <label><a href="CouponCheck">쿠폰 조회</a></label>
+            <label><a href="CouponValidation">쿠폰 유효성 체크</a></label>
         </div>
-        <div class="box1"><label>사용 여부</label></div>
-        <div class="box2">
-            <select name="intCpState" id="intCpState">
-                <option value="">쿠폰 상태</option>
-                <option value="0">발급전</option>
-                <option value="1">발급</option>
-                <option value="2">사용전</option>
-                <option value="3">사용후</option>
-                <option value="4">사용불가</option>
-            </select>
+        <div class="coupon">
+            <div class="coupontype">
+                <span>쿠폰 종류</span>
+                <span>
+                    <select name="intCpUnit" id="intCpUnit">
+                        <option value="1">10% 할인</option>
+                        <option value="2">20% 할인</option>
+                        <option value="3">30% 할인</option>
+                    </select>
+                </span>
+            </div>
+            <div class="couponstate">
+                <span>쿠폰 상태</span>
+                <span>
+                    <select name="intCpState" id="intCpState">
+                        <option value="0">발급전</option>
+                        <option value="1">발급</option>
+                        <option value="2">사용전</option>
+                        <option value="3">사용후</option>
+                        <option value="4">사용불가</option>
+                    </select>
+                </span>
+            </div>
+            <button onclick="CouponCheck()">조회</button>
         </div>
-        <hr />
-        <button onclick="CouponCheck()">조회</button>
         <div>
-            <hr />
             <table>
                 <thead>
                     <tr>
@@ -58,6 +72,8 @@
             </table>
         </div>
     </div>
+
+    <div id="footer"></div>
 </body>
 </html>
 <script>
@@ -75,25 +91,40 @@
             async: false,
             success: function (result) {
                 if (confirm("아래 항목으로 조회 하시겠습니까?") == true)
-                var tbody = $('table > tbody');
+                    var tbody = $('table > tbody');
                 tbody.empty();
                 $.each(result.Coupon, function (i) {
                     tbody.append(
                     '<tr>' +
-                        '<td>' + result.Coupon[i].intCpNo    + '</td>' +
-                        '<td>' + result.Coupon[i].strCpName  + '</td>' +
-                        '<td>' + '<a style="cursor: pointer"  onclick="CouponDtl(\'' + result.Coupon[i].strCpUnit + '\')">' + result.Coupon[i].strCpUnit + '</a>' + '</td>' +
-                        '<td>' + result.Coupon[i].lngCpCode  + '</td>' +
-                        '<td>' + result.Coupon[i].strRegDate + '</td>' +
+                        '<td>' + result.Coupon[i].intCpNo + '</td>' +
+                        '<td>' + '<a style="cursor: pointer; color: blue;"  onclick="CouponDtl(\'' + result.Coupon[i].intCpNo + '\')">' + result.Coupon[i].strCpName + '</a>' + '</td>' +
+                        '<td>' + result.Coupon[i].strCpUnit + '</td>' +
+                        //'<td onclick="copyCode()">' + result.Coupon[i].lngCpCode + '</td>' +
+                        '<td style="cursor: pointer; color: blue;" id="coupon-' + result.Coupon[i].intCpNo + '" onclick="copyCode(' + result.Coupon[i].intCpNo + ')">' + result.Coupon[i].lngCpCode + '</td>' +
+                        '<td>' + result.Coupon[i].strCpRegDate + '</td>' +
                         '<td>' + result.Coupon[i].strUseDate + '</td>' +
-                        '<td>' + result.Coupon[i].strUserId  + '</td>' +
+                        '<td>' + result.Coupon[i].strUserId + '</td>' +
                         '<td>' + result.Coupon[i].strCpState + '</td>' +
                     '</tr>');
                 });
             },
             error: function () {
-                alert('쿠폰 단위 혹은 상태를 입력해 주세요.');
+                alert('서버 에러');
             }
+        });
+    }
+
+    function CouponDtl(intCpNo) {
+        var url = "CouponDtl?CpNo=" + intCpNo;
+        window.open(url, "쿠폰 상세정보", "width=500, height=800, left=300, top=100");
+    }
+
+    function copyCode(couponNo) {
+        var text = document.getElementById('coupon-' + couponNo).innerText;
+        navigator.clipboard.writeText(text).then(function () {
+            alert('쿠폰 번호가 복사되었습니다.');
+        }).catch(function (error) {
+            alert('복사 실패: ' + error);
         });
     }
 </script>

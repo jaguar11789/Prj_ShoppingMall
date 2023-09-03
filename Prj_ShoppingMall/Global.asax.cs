@@ -13,6 +13,7 @@ namespace Prj_ShoppingMall
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }

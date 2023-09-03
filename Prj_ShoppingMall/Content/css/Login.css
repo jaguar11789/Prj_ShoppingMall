@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    /*background: url(/Content/Img/97E63D55-EEFF-4013-881C-A4BB7686E1D8.png);*/
 }
 h2 {
     text-align: center;
@@ -79,3 +80,4 @@ a {
     border-right: none;
     border-right: 0;
 }
+

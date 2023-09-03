@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -121,11 +125,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\CouponCheck.css" />
+    <Content Include="Content\css\CouponValidation.css" />
+    <Content Include="Content\css\footer.css" />
+    <Content Include="Content\css\Index.css" />
+    <Content Include="Content\css\Layout.css" />
     <Content Include="Content\css\Login.css" />
     <Content Include="Content\css\UserRegister.css" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Img\97E63D55-EEFF-4013-881C-A4BB7686E1D8.png" />
+    <Content Include="Content\Img\A36D01E9-2B4E-4E44-A20A-FF08E0384514.png" />
+    <Content Include="Content\Img\img1.png" />
+    <Content Include="Content\Img\img2.png" />
+    <Content Include="Content\Img\img3.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -143,6 +154,7 @@
     <Compile Include="Controllers\AdminController\AdminController.cs" />
     <Compile Include="Controllers\AdminController\AdminCouponController.cs" />
     <Compile Include="Controllers\AdminController\AdminItemController.cs" />
+    <Compile Include="Controllers\CashNotificationController.cs" />
     <Compile Include="Controllers\UserController\CashController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController\UserController.cs" />
@@ -154,13 +166,17 @@
     <Compile Include="Models\AdminService\AdminItemService.cs" />
     <Compile Include="Models\AdminService\AdminService.cs" />
     <Compile Include="Models\CashService\CashService.cs" />
+    <Compile Include="Models\Common\Log.cs" />
     <Compile Include="Models\Info\AdminInfo.cs" />
+    <Compile Include="Models\Info\CashReceipt.cs" />
     <Compile Include="Models\Info\CheckInfo.cs" />
     <Compile Include="Models\Info\CouponInfo.cs" />
     <Compile Include="Models\Info\ItemInfo.cs" />
+    <Compile Include="Models\Info\PayResult.cs" />
     <Compile Include="Models\Info\UserInfo.cs" />
     <Compile Include="Models\ListViewModel\CouponListViewModel.cs" />
     <Compile Include="Models\ListViewModel\ItemListViewModel.cs" />
+    <Compile Include="Models\UserService\UserCouponService.cs" />
     <Compile Include="Models\UserService\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -193,6 +209,16 @@
     <Content Include="Views\Admin\ItemRegist.cshtml" />
     <Content Include="Views\Admin\ItemRgstSuccess.cshtml" />
     <Content Include="Views\Admin\ItemRgstFail.cshtml" />
+    <Content Include="Views\Admin\CouponValidation.cshtml" />
+    <Content Include="Views\Admin\ItemDtl.cshtml" />
+    <Content Include="Views\Admin\ItemModifySuccess.cshtml" />
+    <Content Include="Views\Admin\ItemModifyFail.cshtml" />
+    <Content Include="Views\User\UserCouponHistory.cshtml" />
+    <Content Include="Views\Home\Main.cshtml" />
+    <Content Include="Views\CashNotification\CashNotification.cshtml" />
+    <Content Include="Views\Admin\CouponDtl.cshtml" />
+    <Content Include="Views\Shared\Layout.cshtml" />
+    <Content Include="Views\Shared\footer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -202,9 +228,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Img\" />
     <Folder Include="Views\AdminItem\" />
     <Folder Include="Views\Cash\" />
+    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

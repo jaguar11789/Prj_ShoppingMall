@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link rel="stylesheet" href="Content/css/Layout.css">
+</head>
+
+<body>
+    <div id="container_navbar">
+        <div class="nav_Logo">
+            <div class="Logo"><a href="#">LOGO</a></div>
+        </div>
+        @if (Session["strAdminId"] != null)
+        {
+            <!-- 관리자 화면  -->
+            <ul class="nav_menu2">
+                <li><a href="Admin/PaymentHistory">전체 결제 내역</a></li>
+                <li><a href="Admin/AllPurchase">전체 구매 내역</a></li>
+                <li><a href="Admin/UserAcctStatus">이용자 계좌 조회</a></li>
+                <li><a href="Admin/Coupon">쿠폰</a></li>
+                <li><a href="Admin/ItemManagement">상품 관리</a></li>
+            </ul>
+
+            <!-- 사용자 화면  -->
+            <ul class="nav_menu1" hidden>
+                <li><a href="#">상의</a></li>
+                <li><a href="#">하의</a></li>
+                <li><a href="#">셋업</a></li>
+            </ul>
+        }
+        else
+        {
+            <!-- 사용자 화면  -->
+            <ul class="nav_menu1">
+                <li><a href="#">상의</a></li>
+                <li><a href="#">하의</a></li>
+                <li><a href="#">셋업</a></li>
+            </ul>
+        }
+        @if (Session["strUserId"] != null)
+        {
+            using (Html.BeginForm("UserLogout", "User", FormMethod.Post, new { onsubmit = "logoutButton.disabled = true; return true;"}))
+            {
+                <!-- 사용자 로그인 후 화면  -->
+                <div class="nav_user_menu2">
+                    <input type="submit" value="LOGOUT" />
+                    @*<span><a type="submit" href="#">LOGOUT</a></span>*@
+                </div>
+                <div class="welcome_msg">
+                    <span>@Session["strUserId"], 환영합니다.</span>
+                </div>
+            }
+        }
+        else if (Session["strAdminId"] != null)
+        {
+            using (Html.BeginForm("AdminLogout", "Admin", FormMethod.Post, new { onsubmit = "logoutButton.disabled = true; return true;"}))
+            {
+                <!-- 관리자 로그인 후 화면  -->
+                <div class="nav_user_menu2">
+                    <input type="submit" value="LOGOUT" />
+                    @*<span><a type="submit" href="#">LOGOUT</a></span>*@
+                </div>
+                <div class="welcome_msg">
+                    <span>@Session["strAdminId"], 환영합니다.</span>
+                </div>
+            }
+        }
+        else
+        {
+            <!-- 로그인 전 화면  -->
+            <div class="nav_user_menu1">
+                <span><a href="User/UserLogin">LOGIN</a></span>
+                <span><a href="User/UserRegister">REGISTER</a></span>
+            </div>
+        }
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+</body>
+</html>
+
+<script>
+    if (loggedIn) {
+        document.getElementById('navigation').classList.add('loggedin');
+    } else {
+        document.getElementById('navigation').classList.remove('loggedin');
+    }
+</script>
