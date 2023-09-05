@@ -125,18 +125,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\ChargeCash.css" />
+    <Content Include="Content\css\ChargeFail.css" />
+    <Content Include="Content\css\ChargeSuccess.css" />
     <Content Include="Content\css\CouponCheck.css" />
     <Content Include="Content\css\CouponValidation.css" />
     <Content Include="Content\css\footer.css" />
     <Content Include="Content\css\Index.css" />
     <Content Include="Content\css\Layout.css" />
     <Content Include="Content\css\Login.css" />
+    <Content Include="Content\css\UserMyPage.css" />
     <Content Include="Content\css\UserRegister.css" />
+    <Content Include="Content\Img\1.gif" />
+    <Content Include="Content\Img\2.gif" />
+    <Content Include="Content\Img\3.jpg" />
+    <Content Include="Content\Img\4.gif" />
+    <Content Include="Content\Img\5.jpg" />
+    <Content Include="Content\Img\6.jpg" />
+    <Content Include="Content\Img\7.gif" />
+    <Content Include="Content\Img\8.gif" />
+    <Content Include="Content\Img\9.gif" />
     <Content Include="Content\Img\97E63D55-EEFF-4013-881C-A4BB7686E1D8.png" />
     <Content Include="Content\Img\A36D01E9-2B4E-4E44-A20A-FF08E0384514.png" />
     <Content Include="Content\Img\img1.png" />
     <Content Include="Content\Img\img2.png" />
     <Content Include="Content\Img\img3.png" />
+    <Content Include="Content\Img\IMG_3710.jpg" />
+    <Content Include="Content\Img\IMG_3763.jpg" />
+    <Content Include="Content\Img\IMG_4189.jpg" />
+    <Content Include="Content\Img\main.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -171,12 +188,15 @@
     <Compile Include="Models\Info\CashReceipt.cs" />
     <Compile Include="Models\Info\CheckInfo.cs" />
     <Compile Include="Models\Info\CouponInfo.cs" />
+    <Compile Include="Models\Info\ItemColorSize.cs" />
     <Compile Include="Models\Info\ItemInfo.cs" />
     <Compile Include="Models\Info\PayResult.cs" />
+    <Compile Include="Models\Info\UserAcctInfo.cs" />
     <Compile Include="Models\Info\UserInfo.cs" />
     <Compile Include="Models\ListViewModel\CouponListViewModel.cs" />
     <Compile Include="Models\ListViewModel\ItemListViewModel.cs" />
     <Compile Include="Models\UserService\UserCouponService.cs" />
+    <Compile Include="Models\UserService\UserItemService.cs" />
     <Compile Include="Models\UserService\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -219,6 +239,9 @@
     <Content Include="Views\Admin\CouponDtl.cshtml" />
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Shared\footer.cshtml" />
+    <Content Include="Views\User\ItemDetail.cshtml" />
+    <Content Include="Views\User\ItemPurchase.cshtml" />
+    <Content Include="Views\User\AddrModify.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

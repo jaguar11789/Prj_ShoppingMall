@@ -1,0 +1,146 @@
+﻿.container {
+    position: relative;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+h2 {
+    text-align: center;
+    margin: 30px;
+}
+h4 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.total_cash {
+    width: 100%;
+}
+
+.balance_box {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-top: 10px;
+}
+.balance_box div {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px;
+}
+input[name=means_button] {
+    display: none;
+}
+.charging_means {
+    display: inline-block;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+.charging_means_div {
+    width: 100%;
+}
+.means_tab {
+    margin-top: 10px;
+    width: 100%;
+}
+.means_tab label {
+    cursor: pointer;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: block;
+    float: left;
+    width: 25%;
+    height: 50px;
+    box-sizing: border-box;
+    font-size: 18px;
+    border: 1px solid black;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-right: -1px;
+    text-align: center;
+    outline-offset: 1px;
+    padding-top: 10px;
+    overflow: hidden;
+}
+input[id=means_tab1]:checked ~ .means_tab label:nth-child(1),
+input[id=means_tab2]:checked ~ .means_tab label:nth-child(2),
+input[id=means_tab3]:checked ~ .means_tab label:nth-child(3),
+input[id=means_tab4]:checked ~ .means_tab label:nth-child(4) {
+    background-color: dodgerblue;
+    font-weight: 400;
+    color: #fff;
+}
+input[name=amount_button] {
+    display: none;
+}
+.charging_amount {
+    display: inline-block;
+    margin: 10px 0;
+}
+.charging_amount label {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.amount_tab {
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.amount_tab label {
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-size: 18px;
+    padding-top: 12px;
+    width: 33.33333%;
+    overflow: hidden;
+    height: 60px;
+    margin: 0 -1px -1px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+} 
+input[id=amount_tab1]:checked ~ .amount_tab label:nth-child(1),
+input[id=amount_tab2]:checked ~ .amount_tab label:nth-child(2),
+input[id=amount_tab3]:checked ~ .amount_tab label:nth-child(3),
+input[id=amount_tab4]:checked ~ .amount_tab label:nth-child(4),
+input[id=amount_tab5]:checked ~ .amount_tab label:nth-child(5),
+input[id=amount_tab6]:checked ~ .amount_tab label:nth-child(6) {
+    background-color: dodgerblue;
+    font-weight: 400;
+    color: #fff;
+}
+.checkbox {
+    margin-top: 10px;
+    height: auto;
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
+}
+.check_end_box {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+}
+.check_end {
+    width: 250px;
+    height: 50px;
+    border: 1px solid #222;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    margin: 0 10px;
+}
+.check_end a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: #222;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.check_end a:hover {
+    background-color: #22222222;
+}

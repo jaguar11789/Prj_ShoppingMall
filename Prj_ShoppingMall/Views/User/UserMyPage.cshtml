@@ -3,55 +3,48 @@
     ViewBag.Title = "마이페이지";
 }
 <!DOCTYPE html>
+<link rel="stylesheet" href="~/Content/css/UserMyPage.css">
 <html>
 <head>
 
 </head>
 <body>
-    <style>
-        .box1 {
-            float: left;
-            width: 50%;
-            text-align: left;
-        }
+    <div id="header"></div>
 
-        .box2 {
-            display: inline-block;
-            width: 50%;
-            text-align: right;
-        }
-    </style>
-    <br /><br />
-    <h3 style="text-align: center">마이 페이지</h3>
-    <br /><br />
-    <label>잔액</label>
-    <hr />
-    <div>
-        <div class="box1">총 보유 잔액</div>
-        <div class="box2"> 캐시</div>
-        <div class="box1">캐시</div>
-        <div class="box2"> 캐시</div>
-        <div class="box1">보너스</div>
-        <div class="box2"> 캐시</div>
+    <div class="container">
+        <h2>마이페이지</h2>
+        <h4>잔액</h4>
+        <div class="success_total">
+            <div>총 보유 잔액 <span>@*@ViewBag.UserAcctInfo*@</span></div>
+            <div>캐시 <span>@*@ViewBag.UserAcctInfo*@</span></div>
+            <div>보너스 <span>@*@ViewBag.UserAcctInfo*@</span></div>
+        </div>
+        <div class="charge_cash">
+            <button onclick="location.href='ChargeCash'">충전하기</button>
+        </div>
+        <div class="other_menu1">
+            <a class="other_menu" href="UserPurHistory">
+                <div>ORDER</div>
+                <div>주문내역 조회</div>
+            </a>
+            <a class="other_menu" href="UserProFile">
+                <div>PORFILE</div>
+                <div>회원 정보</div>
+            </a>
+            <a class="other_menu" href="UserChargeHistory">
+                <div>CHARGE HISTORY</div>
+                <div>충전 내역</div>
+            </a>
+            <a class="other_menu" href="UserCouponHistory">
+                <div>COUPON</div>
+                <div>쿠폰함</div>
+            </a>
+            <a class="other_menu" href="UserGiftHistory">
+                <div>GIFT</div>
+                <div>선물함</div>
+            </a>
+        </div>
     </div>
-    <hr />
-    <button onclick="location.href='ChargeCash'" style="background-color: #000000; color: #ffffff; border-color: #000000;">충전하기</button>
-    <hr />
-    <div style="text-align: center;">
-
-        <a style="color: #000000; text-decoration-line: none;" href="UserPurHistory">ORDER<br />주문내역 조회</a>
-
-        <a style="color: #000000; text-decoration-line: none;" href="UserProFile">PROFILE<br />회원 정보</a>
-
-        <a style="color: #000000; text-decoration-line: none;" href="UserChargeHistory">CHARGE HISTORY<br />충전 내역</a>
-
-        <a style="color: #000000; text-decoration-line: none;" href="UserCouponHistory">COUPON<br />마이 쿠폰</a>
-
-        <a style="color: #000000; text-decoration-line: none;" href="UserGiftHistory">GIFT<br />선물함</a>
-
-    </div>
-    <br />
-    <hr />
 </body>
 </html>
 <script>

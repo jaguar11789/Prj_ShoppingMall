@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "배송지 수정";
+    Layout = null;
+}
+<!DOCTYPE html>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<html>
+<head>
+
+</head>
+<body>
+    <div>
+        <label>배송지 수정</label>
+    </div>
+    <hr />
+    <div>
+        <label>이름</label>
+        <input type="text" name="UserName" id="UserName" />
+        <label>주소</label>
+        <input type="text" id="zipcode" name="AddrPost" placeholder="우편번호" readonly /><input type="button" onclick="addrsearch();" class="btn btn-primary" value="주소 검색">
+        <input type="text" id="AddrBase" name="AddrBase" placeholder="기본주소" readonly />
+        <input type="text" id="AddrDtl" name="AddrDtl" placeholder="상세주소" />
+        <label>전화번호</label>
+        <input type="text" name="UserTelNum" id="UserTelNum" placeholder="- 제외하고 입력" />
+    </div>
+    <hr />
+    <div>
+        <button onclick="AddrUpd()">확인</button>
+        <button onclick="window.close()">취소</button>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    //주소검색
+    function addrsearch() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                console.log(data);
+                var roadAddr = data.roadAddress; //도로명 주소 변수
+                var jibunAddr = data.jibunAddress; //지번 주소 변수
+                document.getElementById('zipcode').value = data.zonecode;
+                if (roadAddr !== '') {
+                    document.getElementById('AddrBase').value = roadAddr;
+                } else if (jibunAddr !== '') {
+                    document.getElementById('AddrBase').value = jibunAddr;
+                }
+            }
+        }).open();
+    }
+    function AddrUpd() {
+        // input 필드 값 가져오기
+        const UserName = document.getElementById("UserName").value;
+        const AddrPost = document.getElementById("zipcode").value;
+        const AddrBase = document.getElementById("AddrBase").value;
+        const AddrDtl = document.getElementById("AddrDtl").value;
+        const UserTelNum = document.getElementById("UserTelNum").value;
+
+        // postData 객체 생성
+        const postData = {
+            UserName: UserName,
+            AddrPost: AddrPost,
+            AddrBase: AddrBase,
+            AddrDtl: AddrDtl,
+            UserTelNum: UserTelNum,
+        };
+
+        // 주소 업데이트 Ajax 호출
+        $.ajax({
+            url: '@Url.Action("AddrUpd", "User")',
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            data: JSON.stringify(postData),
+            success: function (result) {
+                alert(result.strResult);
+
+                if (result != null && result.strResult != null) {
+                    window.opener.location.reload();
+                    window.close();
+                } else {
+                    alert("취소 실패하였습니다.");
+                }
+            },
+            error: function () {
+                alert("서버 에러");
+            }
+        });
+    }
+</script>

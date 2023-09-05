@@ -1,7 +1,26 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "메인";
+    var itemListViewModel = (Prj_ShoppingMall.Models.ListViewModel.ItemListViewModel)ViewBag.MainItemList;
 }
+<!DOCTYPE html>
+<html>
+<head>
 
-<h2>Main</h2>
+</head>
+<body>
+    <img src="~/Content/Img/main.jpg" style="width: 1300px; height: 400px;" />
+    <table>
+        <tr>
+            @foreach (var item in itemListViewModel.Item)
+            {
+                <td onclick="location.href = '/User/ItemDetail?ItemNo=' + @item.intItemNo ">
+                    <img style="width: 200px; height: 250px;" src="@item.strItemImg" /><br />
+                    <label>@item.strItemName</label><br />
+                    <label>KRW @item.intItemPrice</label>
+                </td>
+            }
+        </tr>
+    </table>
 
+</body>
+</html>

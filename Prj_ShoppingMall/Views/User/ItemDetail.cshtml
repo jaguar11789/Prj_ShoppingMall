@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "상품 상세정보";
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <div>
+        <div class="box1">
+            <img id="preview" style="width: 300px; height: 400px;" src="@ViewBag.ItemInfo.strItemImg" />
+        </div>
+        <div class="box2">
+            <label><b style="font-size: 20px">@ViewBag.ItemInfo.strItemName</b></label>
+            <hr />
+            <label>판매가</label>
+            <div>KRW @ViewBag.ItemInfo.intItemPrice</div>
+            <label>Color</label>
+            <select name="ItemColor">
+                <option value="">=====색상 선택=====</option>
+                @foreach (var color in ViewBag.ItemInfo.objItemColorList)
+                {
+                    <option value="@color">@color</option>
+                }
+            </select>
+            <label>Size</label>
+            <select name="ItemSize">
+                <option value="">=====사이즈 선택=====</option>
+                @foreach (var size in ViewBag.ItemInfo.objItemSizeList)
+                {
+                    <option value="@size">@size</option>
+                }
+            </select>
+        </div>
+        <button onclick="purchaseItem()" style="background-color: #000000; border-color: #000000; color: #ffffff; width: 300px; height: 40px; font-size: 15px;"><b>바로 구매하기</b></button>
+        <button onclick="purchaseGift()" style="background-color: #ffffff; width: 300px; height: 40px;  font-size: 15px;">선물하기</button>
+    </div>
+</body>
+</html>
+<script>
+    function purchaseItem(itemNo) {
+        var itemColor = document.querySelector('select[name="ItemColor"]').value;
+        var itemSize = document.querySelector('select[name="ItemSize"]').value;
+
+        if (!itemColor || !itemSize) {
+            alert('색상과 사이즈를 모두 선택해주세요.');
+            return;
+        }
+        var url = 'ItemPurchase?ItemNo=' + @ViewBag.ItemInfo.intItemNo + '&ItemColor=' + encodeURIComponent(itemColor) + '&ItemSize=' + encodeURIComponent(itemSize);
+        location.href = url;
+    }
+    function purchaseGift(itemNo) {
+        var itemColor = document.querySelector('select[name="ItemColor"]').value;
+        var itemSize = document.querySelector('select[name="ItemSize"]').value;
+
+        if (!itemColor || !itemSize) {
+            alert('색상과 사이즈를 모두 선택해주세요.');
+            return;
+        }
+        var url = 'GiftPurchase?ItemNo=' + @ViewBag.ItemInfo.intItemNo + '&ItemColor=' + encodeURIComponent(itemColor) + '&ItemSize=' + encodeURIComponent(itemSize);
+        location.href = url;
+    }
+</script>

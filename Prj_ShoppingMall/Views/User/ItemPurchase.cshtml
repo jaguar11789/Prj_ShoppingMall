@@ -1,0 +1,194 @@
+﻿@{
+    ViewBag.Title = "상품 구매";
+    var couponListViewModel = (Prj_ShoppingMall.Models.ListViewModel.CouponListViewModel)ViewBag.CouponListViewModel;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body>
+    <div>
+        <h3>주문/결제</h3>
+    </div>
+
+    <div>
+        <label><b>배송지</b></label>
+        <div>
+            <div>@ViewBag.UserInfo.strUserName</div>
+            <div>[@ViewBag.UserInfo.strAddrPost]  @ViewBag.UserInfo.strAddrBase,  @ViewBag.UserInfo.strAddrDtl</div>
+            <div>@ViewBag.UserInfo.strUserTelNum</div>
+        </div>
+        <div>
+            <button onclick="addrMod()">배송지 수정</button>
+        </div>
+    </div>
+    <div>
+        <label>상품정보</label>
+        <div class="box5">
+            <label>주문상품</label>
+            <div><img id="preview" style="width: 140px; height: 180px;" src="@ViewBag.ItemInfo.strItemImg" /></div>
+        </div>
+        <div class="box6">
+            <div>@ViewBag.ItemInfo.objItemSizeList</div>
+            <div>@ViewBag.ItemColor</div>
+            <div>@ViewBag.ItemSize</div>
+            <div>KRW @ViewBag.ItemInfo.intItemPrice</div>
+        </div>
+        <div class="box1">배송비</div>
+        <div class="box2">KRW 2,500</div>
+    </div>
+    <div>
+        <div class="box1">
+            <label>쿠폰목록</label>
+        </div>
+        <div>
+            <button onclick="UserCouponLST()">조회</button>
+        </div>
+        @if (couponListViewModel != null && couponListViewModel.intRetVal == 0)
+        {
+            <div id="couponList" style="display:none;">
+                @foreach (var coupon in couponListViewModel.Coupon)
+                {
+                    <div class="box1">@coupon.strCpName</div>
+                    <div class="box2" style="cursor: pointer;" onclick="copyCpCode('@coupon.lngCpCode')">@coupon.lngCpCode</div>
+                }
+            </div>
+        }
+        else
+        {
+            <div id="couponList" style="display:none;">
+                <div style="text-align: center;"><h5>@couponListViewModel.strRetMsg</h5></div>
+            </div>
+        }
+    </div>
+    <div>
+        <label><b>쿠폰적용</b></label>
+        <div>
+            <label>쿠폰번호</label>
+        </div>
+        <div>
+            <input type="text" name="CpCode" id="CpCode" />
+            <button onclick="Discount()">확인</button>
+        </div>
+    </div>
+    <div>
+        <label><b>캐시</b></label><hr />
+        <div>현재 보유중인 잔액</div>
+        <div>@ViewBag.UserAcctInfo.intRemainCash 캐시</div>
+        <div>결제 후 잔액</div>
+    </div>
+    <button onclick="chgCash()">충전하기</button>
+    <div>
+        <label>최종 결제 금액</label>
+
+    </div>
+    <div id="test">(@ViewBag.ItemInfo.intItemPrice + @ViewBag.ItemInfo.intDeliveryPrice) 캐시</div>
+    <div>
+        <input type="text" name="ItemNo" id="ItemNo" value="@ViewBag.ItemInfo.intItemNo" hidden/>
+        <input type="text" name="ItemName" id="ItemName" value="@ViewBag.ItemInfo.strItemName" hidden/>
+        <input type="text" name="ItemPrice" id="ItemPrice" value="@ViewBag.ItemInfo.intItemPrice" hidden/>
+        <input type="text" name="ItemColor" id="ItemColor" value="@ViewBag.ItemColor" hidden/>
+        <input type="text" name="ItemSize" id="ItemSize" value="@ViewBag.ItemSize" hidden/>
+    </div>
+    <div>
+        <button onclick="ItemPurchase()">결제하기</button>
+    </div>
+</body>
+</html>
+<script>
+    function ItemPurchase() {
+        var ItemNo = document.getElementById('ItemNo').value;
+        var ItemName = document.getElementById('ItemName').value;
+        var ItemPrice = document.getElementById('ItemPrice').value;
+        var ItemColor = document.getElementById('ItemColor').value;
+        var ItemSize = document.getElementById('ItemSize').value;
+        var CpCode = document.getElementById('CpCode').value;
+
+        $.ajax({
+            url: '@Url.Action("Purchase", "UserItem")',
+            type: 'POST',
+            data: {
+                ItemNo: ItemNo,
+                ItemName: ItemName,
+                ItemPrice: ItemPrice,
+                ItemColor: ItemColor,
+                ItemSize: ItemSize,
+                CpCode: CpCode
+            },
+            success: function (result) {
+                if (confirm("해당 상품을 구매 하시겠습니까?") == true) {
+                    if (result.intRetVal == 0) {
+                        alert(result.strRetMsg);
+                        window.location.href = "PurchaseSuccess";
+                    } else {
+                        alert(result.strRetMsg);
+                    }
+                } else {
+                    return;
+                }
+            },
+            error: function () {
+                alert('서버 에러!!!');
+            }
+        });
+    }
+    function chgCash() {
+        var url = "ChargeCash"
+        window.open(url, "캐시충전", "width=500, height=800, left=300, top=100");
+    }
+    function addrMod() {
+        var url = "AddrModify"
+        window.open(url, "배송지 수정", "width=700, height=400, left=300, top=100");
+    }
+    function UserCouponLST() {
+        var couponList = document.getElementById("couponList");
+
+        if (couponList.style.display === "none") {
+            couponList.style.display = "block";
+        } else {
+            couponList.style.display = "none";
+        }
+    }
+    function Discount() {
+        var lngCpCode = document.getElementById('CpCode').value;
+        $.ajax({
+            url: '@Url.Action("CheckCoupon", "User")',
+            type: 'POST',
+            data: { lngCpCode: lngCpCode },
+            success: function (result) {
+                if (result != null && result.strRetMsg != null) {
+                    if (result.intRetVal == 9999) {
+                        alert(result.strRetMsg);
+                        $('#CpCode').val('');
+                    } else if (result.intRetVal == 1000) {
+                        alert(result.strRetMsg);
+                        $('#CpCode').val('');
+                    } else if (result.intRetVal == 1001) {
+                        alert(result.strRetMsg);
+                        $('#CpCode').val('');
+                    } else {
+                        alert(result.strRetMsg);
+
+
+                    }
+                }
+            },
+            error: function () {
+                alert('서버 에러!!');
+            }
+        });
+    }
+    function copyCpCode(couponCode) {
+        const textArea = document.createElement('textarea');
+        textArea.value = couponCode;
+        document.body.appendChild(textArea);
+        // textarea 선택 및 복사
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+
+        var couponInput = document.getElementById("CpCode");
+        couponInput.value = couponCode;
+    }
+</script>

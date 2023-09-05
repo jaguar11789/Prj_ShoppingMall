@@ -16,6 +16,53 @@ namespace Prj_ShoppingMall.Models.AdminService
     {
         private static string strConnectionString = ConfigurationManager.ConnectionStrings["strConnectionString"].ConnectionString;
 
+        // 상품 리스트(메인)
+        public ItemListViewModel getMainItemList()
+        {
+            DataTable objDt = new DataTable();
+            List<ItemInfo> objLisgItemInfo = new List<ItemInfo>();
+
+            using (SqlConnection conn = new SqlConnection(strConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("UP_ITEM_TX_LST", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    conn.Open();
+
+                    try
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            objDt.Load(reader);
+
+                            foreach (DataRow row in objDt.Rows)
+                            {
+                                objLisgItemInfo.Add(new ItemInfo
+                                {
+                                    intItemNo    = Convert.ToInt32(row["ItemNo"]),
+                                    strItemName  = row["ItemName"].ToString(),
+                                    intItemPrice = Convert.ToInt32(row["ItemPrice"]),
+                                    strItemImg   = row["ItemImg"].ToString()
+                                });
+                            }
+                            var viewItem = new ItemListViewModel
+                            {
+                                Item = objLisgItemInfo
+                            };
+                            return viewItem;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Info("[AdminItemService][getMainItemList] ex : " + ex);
+
+                        return null;
+                    }
+                }
+            }
+        }
+
         // 상품 조회
         public ItemListViewModel getItemList(int intPCategoryNo, int intSubCategoryNo, int intItemState)
         {
@@ -151,7 +198,7 @@ namespace Prj_ShoppingMall.Models.AdminService
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@pi_intItemNo", SqlDbType.VarChar).Value = intItemNo;
+                    cmd.Parameters.Add("@pi_intItemNo", SqlDbType.Int).Value = intItemNo;
 
                     conn.Open();
 
@@ -189,7 +236,7 @@ namespace Prj_ShoppingMall.Models.AdminService
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@pi_intItemNo", SqlDbType.VarChar).Value = intItemNo;
+                    cmd.Parameters.Add("@pi_intItemNo", SqlDbType.Int).Value = intItemNo;
 
                     conn.Open();
 

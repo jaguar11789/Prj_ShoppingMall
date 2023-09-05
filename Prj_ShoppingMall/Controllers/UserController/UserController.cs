@@ -1,4 +1,5 @@
-﻿using Prj_ShoppingMall.Models.Info;
+﻿using Prj_ShoppingMall.Models.AdminService;
+using Prj_ShoppingMall.Models.Info;
 using Prj_ShoppingMall.Models.ListViewModel;
 using Prj_ShoppingMall.Models.UserService;
 using System;
@@ -13,6 +14,8 @@ namespace Prj_ShoppingMall.Controllers.UserController
     {
         UserService _userService = new UserService();
         UserCouponService _userCouponService = new UserCouponService();
+        AdminItemService _adminItemService = new AdminItemService();
+        AdminCouponService _adminCouponService = new AdminCouponService();
         // GET: User
         public ActionResult Index()
         {
@@ -181,6 +184,75 @@ namespace Prj_ShoppingMall.Controllers.UserController
         // 충전실패
         [HttpGet]
         public ActionResult ChargeFail()
+        {
+            return View();
+        }
+
+        // 상품상세 페이지
+        [HttpGet]
+        public ActionResult ItemDetail(int ItemNo)
+        {
+            ItemInfo objResult = _adminItemService.getItemDetail(ItemNo);
+
+            // 상품 색상정보
+            List<int> objResult2       = _adminItemService.getItemColorInfo(ItemNo);
+            List<string> objColorList  = objResult2.Select(colorCode => ItemColorSize.ColorNoToString(colorCode)).ToList();
+            objResult.objItemColorList = objColorList;
+            objResult.intItemColorNo   = objResult2;
+
+            // 상품 사이즈정보
+            List<int> objResult3      = _adminItemService.getItemSizeInfo(ItemNo);
+            List<string> objSizeList  = objResult3.Select(sizeCode => ItemColorSize.SizeNoToString(sizeCode)).ToList();
+            objResult.objItemSizeList = objSizeList;
+            objResult.intItemSizeNo   = objResult3;
+
+            ViewBag.ItemInfo = objResult;
+
+            if (objResult != null)
+            {
+                return View(objResult);
+            }
+            else
+            {
+                return RedirectToAction("Main", "Home");
+            }
+        }
+
+        // 상품구매 페이지
+        [HttpGet]
+        public ActionResult ItemPurchase(int itemNo, string ItemColor, string ItemSize, UserInfo objUserInfo)
+        {
+            UserAcctInfo objUserAcctInfo = null;
+
+            if (Session["strUserId"] != null)
+            {
+                objUserInfo.strUserId = Session["strUserId"].ToString();
+
+                // 색상 정보
+                ViewBag.ItemColor = ItemColor;
+                // 사이즈 정보
+                ViewBag.ItemSize  = ItemSize;
+
+                // 사용자 정보
+                objUserInfo = _userService.getUserInfo(objUserInfo.strUserId);
+                ViewBag.UserInfo = objUserInfo;
+
+                // 사용자 계좌정보
+                objUserAcctInfo = _userService.getUserAcctInfo(objUserInfo.strUserId);
+                ViewBag.UserAcctInfo = objUserAcctInfo;
+
+                // 상품정보
+                ViewBag.ItemInfo = _adminItemService.getItemDetail(itemNo);
+
+                // 사용자 쿠폰목록
+                ViewBag.CouponListViewModel = _userCouponService.getUserCouponList(objUserInfo.strUserId);
+            }
+            return View();
+        }
+
+        // 배송지 수정(팝업)
+        [HttpGet]
+        public ActionResult AddrModify()
         {
             return View();
         }

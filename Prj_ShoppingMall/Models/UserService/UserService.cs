@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Data;
 using System.Configuration;
+using Prj_ShoppingMall.Models.Common;
 
 namespace Prj_ShoppingMall.Models.UserService
 {
@@ -267,6 +268,7 @@ namespace Prj_ShoppingMall.Models.UserService
             }
         }
 
+        // 회원정보 수정
         public UserInfo UserModify(UserInfo objUserInfo, string strUserId)
         {
             int intRetVal        = -1;
@@ -334,6 +336,59 @@ namespace Prj_ShoppingMall.Models.UserService
                     catch (Exception ex)
                     {
                         throw ex;
+                    }
+                }
+            }
+        }
+
+        // 회원 계좌정보
+        public UserAcctInfo getUserAcctInfo(string strUserId)
+        {
+            DataTable objDt  = new DataTable();
+            UserAcctInfo objUserAcctInfo = null;
+
+            using (SqlConnection conn = new SqlConnection(strConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("UP_USERCASH_AR_GET", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@pi_strUserId", SqlDbType.VarChar).Value = strUserId;
+
+                    conn.Open();
+
+                    try
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            objDt.Load(reader);
+                        }
+
+                        if (objDt.Rows.Count > 0)
+                        {
+                            DataRow row = objDt.Rows[0];
+
+                            objUserAcctInfo = new UserAcctInfo
+                            {
+                                strUserId          = row["UserId"].ToString(),             // 회원 아이디    
+                                intRemainRealCash  = Convert.ToInt32(row["RemainRealCash"]),  // 남은 리얼 캐시
+                                intRemainRealBonus = Convert.ToInt32(row["RemainBonusCash"]), // 남은 리얼 보너스
+                                intRemainCash      = Convert.ToInt32(row["RemainCash"]),      // 남은 캐시
+                                intUseCashAmt      = Convert.ToInt32(row["UseCashAmt"]),      // 사용한 캐시
+
+                                intUseBonusAmt     = Convert.ToInt32(row["UseBonusAmt"]),     // 사용한 보너스
+                                intTotalCashAmt    = Convert.ToInt32(row["TotalCashAmt"]),    // 충전캐시 합
+                                intTotalBonusAmt   = Convert.ToInt32(row["TotalBonusAmt"]),   // 충전보너스 합
+                                strUpdDate         = row["UpdDate"].ToString(),               // 수정일
+                            };
+                        }
+                        return objUserAcctInfo;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Info("[UserService][getUserAcctInfo] ex : " + ex);
+
+                        return objUserAcctInfo;
                     }
                 }
             }

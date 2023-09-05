@@ -102,6 +102,9 @@ namespace Prj_ShoppingMall.Models.UserService
 
                     try
                     {
+                        intRetVal = Convert.ToInt32(cmd.Parameters["@po_intRetVal"].Value);
+                        strRetMsg = Convert.ToString(cmd.Parameters["@po_strRetMsg"].Value);
+
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             objDt.Load(reader);
@@ -114,11 +117,6 @@ namespace Prj_ShoppingMall.Models.UserService
                                     lngCpCode = Convert.ToInt64(row["CpCode"]),
                                 });
                             }
-                        }
-
-                        intRetVal = Convert.ToInt32(cmd.Parameters["@po_intRetVal"].Value);
-                        strRetMsg = Convert.ToString(cmd.Parameters["@po_strRetMsg"].Value);
-
                         var viewCoupon = new CouponListViewModel
                         {
                             Coupon    = objListCouponInfo,
@@ -127,6 +125,7 @@ namespace Prj_ShoppingMall.Models.UserService
                         };
 
                         return viewCoupon;
+                        }
                     }
                     catch (Exception ex)
                     {

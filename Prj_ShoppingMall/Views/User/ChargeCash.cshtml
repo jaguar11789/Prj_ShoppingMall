@@ -1,86 +1,72 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "캐시충전";
 }
 <!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="~/Content/css/ChargeCash.css">
 <html>
 <head>
 
 </head>
 <body>
-    <div style="position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);">
-        <br /><br />
-        <h3 style="text-align: center">캐시 충전</h3>
-        <br /><br />
-        <label>잔액</label>
-        <hr />
-        <div>
-            <div>
-                <div class="box1">총 보유 잔액</div>
-                <div class="box2">@*@ViewBag.UserAcctInfo.intRemainCash*@ 캐시</div>
-                <div class="box1">캐시</div>
-                <div class="box2">@*@ViewBag.UserAcctInfo.intRealCash*@ 캐시</div>
-                <div class="box1">보너스</div>
-                <div class="box2">@*@ViewBag.UserAcctInfo.intRealBonus*@ 캐시</div>
+    <div id="header"></div>
+
+    <div class="container">
+        <h2>캐시충전</h2>
+        <div class="total_cash">
+            <h4>잔액</h4>
+            <div class="balance_box">
+                <div>총 보유잔액 <span>52,000캐시</span></div>
+                <div>캐시 <span>50,000캐시</span></div>
+                <div>보너스 <span>2,000캐시</span></div>
             </div>
         </div>
-        <hr />
-        <div>
-            <label>충전 수단</label>
-            <br />
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width: 1100px;">
-                <input type="radio" class="btn-check" name="ChargingMethod" id="creditcard" autocomplete="off" value="creditcard">
-                <label class="btn btn-outline-primary" for="creditcard">신용카드</label>
-
-                <input type="radio" class="btn-check" name="ChargingMethod" id="mobile" autocomplete="off" value="mobile">
-                <label class="btn btn-outline-primary" for="mobile">휴대폰</label>
-
-                <input type="radio" class="btn-check" name="ChargingMethod" id="PayPal" autocomplete="off" value="3">
-                <label class="btn btn-outline-primary" for="PayPal">PayPal</label>
+        <div class="charging_means">
+            <div class="charging_means_div">충전수단</div>
+            <input type="radio" name="means_button" id="means_tab1" value="creditcard" checked>
+            <input type="radio" name="means_button" id="means_tab2" value="mobile">
+            <input type="radio" name="means_button" id="means_tab3" value="virtualaccount">
+            <input type="radio" name="means_button" id="means_tab4" value="kakaopay">
+            <div class="means_tab">
+                <label for="means_tab1">신용카드</label>
+                <label for="means_tab2">휴대폰 결제</label>
+                <label for="means_tab3">가상계좌</label>
+                <label for="means_tab4">카카오페이</label>
+            </div>
+            <div class="charging_amount">
+                <div>충전금액</div>
+                <input type="radio" name="amount_button" id="amount_tab1" value="10000" checked>
+                <input type="radio" name="amount_button" id="amount_tab2" value="30000" >
+                <input type="radio" name="amount_button" id="amount_tab3" value="50000" >
+                <input type="radio" name="amount_button" id="amount_tab4" value="70000" >
+                <input type="radio" name="amount_button" id="amount_tab5" value="100000" >
+                <input type="radio" name="amount_button" id="amount_tab6" value="200000" >
+                <div class="amount_tab">
+                    <label for="amount_tab1">KRW 11,000 (캐시10,000 + 1,000)</label>
+                    <label for="amount_tab2">KRW 33,000 (캐시30,000 + 3,000)</label>
+                    <label for="amount_tab3">KRW 55,000 (캐시50,000 + 5,000)</label>
+                    <label for="amount_tab4">KRW 77,000 (캐시70,000 + 7,000)</label>
+                    <label for="amount_tab5">KRW 110,000 (캐시100,000 + 10,000)</label>
+                    <label for="amount_tab6">KRW 220,000 (캐시200,000 + 20,000)</label>
+                </div>
+            </div>
+            <div class="checkbox">
+                <div>
+                    <input type="checkbox" name="agree" id="agree_btn1">
+                    <span>결제 이용약관 동의 <a href="#">(약관 자세히 보기)</a></span>
+                </div>
+                <div>
+                    <input type="checkbox" name="agree" id="agree_btn2">
+                    <span>결제대행사 이용약관 및 결제정보 제공에 대한 동의 <a href="#">(자세히 보기)</a></span>
+                </div>
             </div>
         </div>
-        <br />
-        <div>
-            <label>충전 금액</label>
-            <br />
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width: 1100px;">
-                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio4" autocomplete="off" value="10000">
-                <label class="btn btn-outline-primary" for="btnradio4">KRW 10,000(캐시 10,000 + 1,000)</label>
-
-                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio5" autocomplete="off" value="30000">
-                <label class="btn btn-outline-primary" for="btnradio5">KRW 30,000(캐시 30,000 + 3,000)</label>
-
-                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio6" autocomplete="off" value="50000">
-                <label class="btn btn-outline-primary" for="btnradio6">KRW 50,000(캐시 50,000 + 5,000)</label>
+        <div class="check_end_box">
+            <div class="check_end">
+                <a href="#">충전하기</a>
             </div>
         </div>
-        <br />
-        <div>
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width: 1100px;">
-                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio7" autocomplete="off" value="70000">
-                <label class="btn btn-outline-primary" for="btnradio7">KRW 70,000(캐시 70,000 + 7,000)</label>
-
-                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio8" autocomplete="off" value="100000">
-                <label class="btn btn-outline-primary" for="btnradio8">KRW 100,000(캐시 100,000 + 10,000)</label>
-
-                <input type="radio" class="btn-check" name="ChargeAmount" id="btnradio9" autocomplete="off" value="200000 ">
-                <label class="btn btn-outline-primary" for="btnradio9">KRW 200,000(캐시 200,000 + 20,000)</label>
-            </div>
-        </div>
-        <br />
-        <hr />
-        <div>
-            <input type="checkbox" name="agree1" id="agree1" />결제 이용약관 동의 <a href="#">(약관 자세히 보기)</a>
-            <br />
-            <input type="checkbox" name="agree2" id="agree2" />결제대행사 이용약관 및 결제정보 제공에 대한 동의 <a href="#">(자세히 보기)</a>
-            <hr />
-        </div>
-        <button id="charge" style="width:1100px; height: 50px; background-color: #000000; color: #ffffff;">충전하기</button>
     </div>
 </body>
 </html>

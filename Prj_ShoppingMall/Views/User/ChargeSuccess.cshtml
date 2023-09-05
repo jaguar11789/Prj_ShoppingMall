@@ -5,58 +5,37 @@
 <!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="~/Content/css/ChargeSuccess.css">
 <html>
 <head>
 
 </head>
 <body>
-    <br /><br />
-    <h3 style="text-align: center">캐시 충전</h3>
-    <br /><br />
-    <div>
-        <label>충전 완료</label>
-        <hr /><br />
-        <div style="text-align: center">
-            <b>캐시 충전이 성공적으로 <b style="color: #0094ff">완료</b>되었습니다.</b>
+    <div id="header"></div>
+
+    <div class="container">
+        <h2>캐시충전</h2>
+        <div class="charge_check">
+            <h4>충전 완료</h4>
+            <div class="success_msg">
+                캐시 충전이 성공적으로 <span>완료</span>되었습니다.
+            </div>
         </div>
-        <br />
-        <hr />
-    </div>
-    <br />
-    <div>
-        <label>잔액</label>
-        <hr />
-        <table style="width:900px;">
-            <tr>
-                <td>충전수단</td>
-                <td></td>
-                <td></td>
-                <td style="text-align: right;">@ViewBag.PayToolName</td>
-            </tr>
-            <tr>
-                <td>결제일시</td>
-                <td></td>
-                <td></td>
-                <td style="text-align: right;">@ViewBag.TransactionDate</td>
-            </tr>
-            <tr>
-                <td>충전금액</td>
-                <td></td>
-                <td></td>
-                <td style="text-align: right;">@ViewBag.ChargeAmount 캐시</td>
-            </tr>
-            <tr>
-                <td>충전 후 잔액</td>
-                <td></td>
-                <td></td>
-                <td style="text-align: right;">@ViewBag.RemainCash 캐시</td>
-            </tr>
-        </table>
-    </div>
-    <hr />
-    <div style="text-align: center;">
-        <button style="background-color: #000000; color: #ffffff; width: 200px; height: 40px" onclick="location.href = '../../'">홈으로</button>
-        <button style="background-color: #ffffff; color: #000000; width: 200px; height: 40px" onclick="location.href = 'ChargeCash'">한번 더 충전</button>
+        <h4>잔액</h4>
+        <div class="success_total">
+            <div>충전수단 <span>신용카드</span></div>
+            <div>결제일시 <span>2023-06-22 12:43:23</span></div>
+            <div>충전금액 <span>200,000 캐시</span></div>
+            <div>충전 후 잔액 <span>252,000 캐시</span></div>
+        </div>
+        <div class="other_menu_box">
+            <div class="other_menu">
+                <a href="../Home/Main">홈으로</a>
+            </div>
+            <div class="other_menu">
+                <a href="ChargeCash">한번 더 충전하기</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>
