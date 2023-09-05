@@ -176,6 +176,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController\UserController.cs" />
     <Compile Include="Controllers\UserController\UserMyPageController.cs" />
+    <Compile Include="Controllers\UserController\UserPurchaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,6 +255,7 @@
     <Folder Include="Views\AdminItem\" />
     <Folder Include="Views\Cash\" />
     <Folder Include="Views\NewFolder1\" />
+    <Folder Include="Views\UserPurchase\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -3,7 +3,8 @@
     var couponListViewModel = (Prj_ShoppingMall.Models.ListViewModel.CouponListViewModel)ViewBag.CouponListViewModel;
 }
 <!DOCTYPE html>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <html>
 <head>
 </head>
@@ -68,7 +69,7 @@
             <label>쿠폰번호</label>
         </div>
         <div>
-            <input type="text" name="CpCode" id="CpCode" />
+            <input type="text" name="CpCode" id="CpCode" maxlength="16" />
             <button onclick="Discount()">확인</button>
         </div>
     </div>
@@ -98,23 +99,23 @@
 </html>
 <script>
     function ItemPurchase() {
-        var ItemNo = document.getElementById('ItemNo').value;
-        var ItemName = document.getElementById('ItemName').value;
-        var ItemPrice = document.getElementById('ItemPrice').value;
-        var ItemColor = document.getElementById('ItemColor').value;
-        var ItemSize = document.getElementById('ItemSize').value;
-        var CpCode = document.getElementById('CpCode').value;
+        var intItemNo    = document.getElementById('ItemNo').value;
+        var strItemName  = document.getElementById('ItemName').value;
+        var intItemPrice = document.getElementById('ItemPrice').value;
+        var strItemColor = document.getElementById('ItemColor').value;
+        var strItemSize  = document.getElementById('ItemSize').value;
+        var lngCpCode    = document.getElementById('CpCode').value;
 
         $.ajax({
-            url: '@Url.Action("Purchase", "UserItem")',
+            url: '@Url.Action("PurchaseItem", "UserPurchase")',
             type: 'POST',
             data: {
-                ItemNo: ItemNo,
-                ItemName: ItemName,
-                ItemPrice: ItemPrice,
-                ItemColor: ItemColor,
-                ItemSize: ItemSize,
-                CpCode: CpCode
+                intItemNo:    intItemNo,
+                strItemName:  strItemName,
+                intItemPrice: intItemPrice,
+                strItemColor: strItemColor,
+                strItemSize:  strItemSize,
+                lngCpCode:    lngCpCode
             },
             success: function (result) {
                 if (confirm("해당 상품을 구매 하시겠습니까?") == true) {
@@ -153,7 +154,7 @@
     function Discount() {
         var lngCpCode = document.getElementById('CpCode').value;
         $.ajax({
-            url: '@Url.Action("CheckCoupon", "User")',
+            url: '@Url.Action("CheckCoupon", "UserPurchase")',
             type: 'POST',
             data: { lngCpCode: lngCpCode },
             success: function (result) {
