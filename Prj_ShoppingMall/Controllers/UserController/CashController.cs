@@ -1,4 +1,5 @@
-﻿using Prj_ShoppingMall.Models.CashService;
+﻿using Newtonsoft.Json;
+using Prj_ShoppingMall.Models.CashService;
 using Prj_ShoppingMall.Models.Info;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Prj_ShoppingMall.Controllers
         [HttpPost]
         public JsonResult ChargeCash(string payMethod, int itemPrice, string itemName, UserInfo userInfo)
         {
-            int intOrderNo = 0;
+            int intOrderNo = 1234567890;
             string strResult = null;
             try
             {
@@ -29,6 +30,9 @@ namespace Prj_ShoppingMall.Controllers
 
                 // 2. 결제요청
                 strResult = _cashService.requestPayment(payMethod, itemPrice, itemName, userInfo.strUserId, intOrderNo);
+
+
+                
             }
             catch (Exception)
             {

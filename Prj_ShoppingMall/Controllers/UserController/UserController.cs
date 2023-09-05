@@ -256,5 +256,37 @@ namespace Prj_ShoppingMall.Controllers.UserController
         {
             return View();
         }
+
+        // 상품구매(선물) 페이지
+        [HttpGet]
+        public ActionResult GiftPurchase(int itemNo, string ItemColor, string ItemSize, UserInfo objUserInfo)
+        {
+            UserAcctInfo objUserAcctInfo = null;
+
+            if (Session["strUserId"] != null)
+            {
+                objUserInfo.strUserId = Session["strUserId"].ToString();
+
+                // 색상 정보
+                ViewBag.ItemColor = ItemColor;
+                // 사이즈 정보
+                ViewBag.ItemSize = ItemSize;
+
+                // 사용자 정보
+                objUserInfo = _userService.getUserInfo(objUserInfo.strUserId);
+                ViewBag.UserInfo = objUserInfo;
+
+                // 사용자 계좌정보
+                objUserAcctInfo = _userService.getUserAcctInfo(objUserInfo.strUserId);
+                ViewBag.UserAcctInfo = objUserAcctInfo;
+
+                // 상품정보
+                ViewBag.ItemInfo = _adminItemService.getItemDetail(itemNo);
+
+                // 사용자 쿠폰목록
+                ViewBag.CouponListViewModel = _userCouponService.getUserCouponList(objUserInfo.strUserId);
+            }
+            return View();
+        }
     }
 }

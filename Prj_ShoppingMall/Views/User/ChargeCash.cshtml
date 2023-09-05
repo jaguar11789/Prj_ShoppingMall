@@ -64,7 +64,7 @@
         </div>
         <div class="check_end_box">
             <div class="check_end">
-                <a href="#">충전하기</a>
+                <a id="charge" href="#">충전하기</a>
             </div>
         </div>
     </div>
@@ -79,8 +79,8 @@
     });
 
     function checkAgreements() {
-        var agree1 = document.getElementById('agree1').checked;
-        var agree2 = document.getElementById('agree2').checked;
+        var agree1 = document.getElementById('agree_btn1').checked;
+        var agree2 = document.getElementById('agree_btn2').checked;
 
         if (!(agree1 && agree2)) {
             alert("전자금융거래 이용약관에 동의해주세요.");
@@ -94,16 +94,16 @@
             e.preventDefault();
 
             if (checkAgreements()) {
-                var chargingMethod = $("input[name='ChargingMethod']:checked").val();
-                var chargeAmount = $("input[name='ChargeAmount']:checked").val();
+                var means_button = $("input[name='means_button']:checked").val();
+                var amount_button = $("input[name='amount_button']:checked").val();
 
                 $.ajax({
                     url: '@Url.Action("ChargeCash", "Cash")',
                     type: 'POST',
                     data: JSON.stringify(
                         {
-                            payMethod: chargingMethod,
-                            itemPrice: chargeAmount,
+                            payMethod: means_button,
+                            itemPrice: amount_button,
                             itemName: '테스트 상품'
                         }),
                     dataType: "text",

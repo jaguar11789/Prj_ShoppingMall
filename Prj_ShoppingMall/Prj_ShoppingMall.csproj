@@ -243,6 +243,7 @@
     <Content Include="Views\User\ItemDetail.cshtml" />
     <Content Include="Views\User\ItemPurchase.cshtml" />
     <Content Include="Views\User\AddrModify.cshtml" />
+    <Content Include="Views\User\GiftPurchase.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
